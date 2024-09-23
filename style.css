@@ -45,6 +45,7 @@ h1
 .buttons 
 {
     display: flex;
+    justify-content: center;
     gap: 20px;
     margin-bottom: 20px;
 }
@@ -73,4 +74,7 @@ h1
 {
     background-color: #007bb5;
 
+}
+.connecte{
+    font-size: x-large;
 }
