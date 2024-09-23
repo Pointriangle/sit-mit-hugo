@@ -1,16 +1,76 @@
-.logo{
+.logo
+{
     display: flex;
     justify-content: center;
    }
-.contacts{
+.contacts
+{
     display: flex;
     justify-content: center;
    }
-.login{
+.login
+{
     display: flex;
     justify-content: center;
 }
-.signin{
+.signin
+{
     display: flex;
     justify-content: center;
+}
+body 
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+h1 
+{
+    color: #333;
+    margin-bottom: 10px;
+}
+#question 
+{
+    font-size: 1.2em;
+    margin: 20px 0;
+    text-align: center;
+    max-width: 600px;
+}
+.buttons 
+{
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.btn 
+{
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed; /* Indique que le bouton n'est pas interactif */
+    background-color: #ccc;
+    color: #666;
+    transition: background-color 0.3s;
+}
+.btn:hover 
+{
+    background-color: #bbb;
+}
+.btn-restart 
+{
+    background-color: #008CBA;
+    color: white;
+    cursor: not-allowed;
+}
+.btn-restart:hover 
+{
+    background-color: #007bb5;
+
 }
