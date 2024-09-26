@@ -284,3 +284,20 @@ th {
         transform:rotate(360deg)
     }
 }
+
+#logob{
+    position: relative;
+    animation-name:animsignin;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+@keyframes animsignin{
+    0%{
+        left: 0px;    
+    }
+    100%{
+        left:100%;
+    }
+
+}
