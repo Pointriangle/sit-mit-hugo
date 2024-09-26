@@ -256,6 +256,7 @@ form{
     text-align: justify;
 }
 
+
 form {
     text-align: justify;
 }
@@ -361,4 +362,9 @@ form {
     }
 }
 
+
+
+.add{
+    display: flex;
+}
 
