@@ -34,8 +34,11 @@ body
 }
 h1 
 {
+    display:flex;
+    justify-content: center;
     color: #333;
     margin-bottom: 10px;
+    font-size: 10%;
 }
 #question 
 {
