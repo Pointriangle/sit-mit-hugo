@@ -53,7 +53,7 @@ header {
 }
 
 main {
-    flex-grow: 1;
+    flex-grow: 1; /* prend toute la fenêtre*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,7 +82,7 @@ h1 {
     display: flex;
     justify-content: center;
     cursor: pointer;
-    z-index: 2;
+    z-index: 2; /* au 2e plan */
 }
 .buttons {
     display: flex;
