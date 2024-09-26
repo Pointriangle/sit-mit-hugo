@@ -92,8 +92,8 @@ h1 {
 }
 
 .btn {
+    cursor: pointer;
     color: black;
-    text-decoration: none;
     padding: 10px 20px;
     font-size: 1em;
     border: none;
@@ -154,6 +154,31 @@ th {
     background-color: #22628a; 
     color: white; 
     font-weight: bold; 
+}
+/*style contacte*/
+.contact-info {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    text-align: center; 
+}
+
+
+.contact-info a {
+    margin: 0 10px; 
+}
+
+
+.icon {
+    width: 30px; 
+    height: auto; 
+    transition: transform 0.2s; 
+}
+
+
+.contact-info a:hover .icon {
+    transform: scale(1.2); /
 }
 
 /* Responsive Styles */
