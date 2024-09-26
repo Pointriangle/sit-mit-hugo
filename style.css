@@ -256,8 +256,7 @@ th {
     animation-name:bounce;
     animation-duration: 1s;
     animation-fill-mode: forwards;
-    
-  }
+ }
 @keyframes bounce{
     0%{scale:1}
     50%{scale:1.25}
@@ -288,16 +287,21 @@ th {
 #logob{
     position: relative;
     animation-name:animsignin;
-    animation-duration: 1s;
+    animation-duration: 5s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 @keyframes animsignin{
     0%{
-        left: 0px;    
+        left: -30%;    
     }
+    
     100%{
-        left:100%;
+        left:30%;
     }
 
+}
+form{
+    text-align: justify;
 }
