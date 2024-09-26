@@ -305,3 +305,6 @@ th {
 form{
     text-align: justify;
 }
+.add{
+    display: flex;
+}
