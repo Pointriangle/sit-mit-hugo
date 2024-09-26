@@ -19,10 +19,34 @@
                 Le concept du jeu est de faire deviner à la machine, en répondant à des questions fermées, l'identité d'un professeur du Lycée-Collège de la Planta <br> <br>
             <div class="buttons">
                 <a class="btn" href="login.html"> Se connecter </a><br>
-                <a class="btn" href="signin.html"> Créer un compte </a> <br>
-                <a id="btn-f" class="btn" href="jeu.html">Jouer sans se connecter </a> <br> <br>
+                <a class="btn" href="signin.html"> Créer un compte </a> <br>  
+            </div><br>
+            <div class="buttons">
+                <a class ="btn" id="boutonFuyant" >Jouer sans se connecter</a>
+            
+                <script>
+                    const bouton = document.getElementById('boutonFuyant');
+                    
+                    document.addEventListener('mousemove', (souris) => {
+                        const rect = bouton.getBoundingClientRect();
+                        const distance = Math.sqrt(
+                            Math.pow(souris.clientX - (rect.left + rect.width / 2), 2) +
+                            Math.pow(souris.clientY - (rect.top + rect.height / 2), 2)
+                        );
+                        
+                        if (distance < 100) {
+                            const newTop = Math.random() * (window.innerHeight - rect.height);
+                            const newLeft = Math.random() * (window.innerWidth - rect.width);
+                            
+                            bouton.style.top = newTop + 'px';
+                            bouton.style.left = newLeft + 'px';
+                        }
+                    });
+                </script>
             </div>
-        </main>
+
+            
+        </main><br>
         <footer>
             <div class="contacts">
                 <p>Bug, problème ou curiosité? <a href="contacts.html"> Contactez-nous</a> </p>  
