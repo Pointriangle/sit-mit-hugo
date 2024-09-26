@@ -86,3 +86,9 @@ h1
     color: #666;
     transition: background-color 0.3s;
 }
+#boutonFuyant {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
