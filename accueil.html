@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <meta name="" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,45 +16,42 @@
             <a class="btn" href="leaderboardeleve.html">Les plus gros joueurs</a>
         </div>
     </header>
-    
 
-        <main>
-            <p id="questions">Le concept du jeu est de faire deviner à la machine, en répondant à des questions fermées, l'identité d'un professeur du Lycée-Collège de la Planta</p> <br> <br>
-            <div class="buttons">
-                <a class="btn" href="login.html"> Se connecter </a>
-                <a class="btn" href="signin.html"> Créer un compte </a>  
-            </div><br>
-            <div class="buttons">
-                <a class ="btn" id="boutonFuyant" >Jouer sans se connecter</a>
+    <main>
+        <p id="questions">Le concept du jeu est de faire deviner à la machine, en répondant à des questions fermées, l'identité d'un professeur du Lycée-Collège de la Planta</p> 
+        <div class="buttons">
+            <a class="btn" href="login.html"> Se connecter </a>
+            <a class="btn" href="signin.html"> Créer un compte </a>  
+        </div>
+        <div class="buttons">
+            <a class="btn" id="boutonFuyant">Jouer sans se connecter</a>
+        </div>
+        
+        <script>
+            const bouton = document.getElementById('boutonFuyant');
             
-                <script>
-                    const bouton = document.getElementById('boutonFuyant');
+            document.addEventListener('mousemove', (souris) => {
+                const rect = bouton.getBoundingClientRect();
+                const distance = Math.sqrt(
+                    Math.pow(souris.clientX - (rect.left + rect.width / 2), 2) +
+                    Math.pow(souris.clientY - (rect.top + rect.height / 2), 2)
+                );
+                
+                if (distance < 100) {
+                    const newTop = Math.random() * (window.innerHeight - rect.height);
+                    const newLeft = Math.random() * (window.innerWidth - rect.width);
                     
-                    document.addEventListener('mousemove', (souris) => {
-                        const rect = bouton.getBoundingClientRect();
-                        const distance = Math.sqrt(
-                            Math.pow(souris.clientX - (rect.left + rect.width / 2), 2) +
-                            Math.pow(souris.clientY - (rect.top + rect.height / 2), 2)
-                        );
-                        
-                        if (distance < 100) {
-                            const newTop = Math.random() * (window.innerHeight - rect.height);
-                            const newLeft = Math.random() * (window.innerWidth - rect.width);
-                            
-                            bouton.style.top = newTop + 'px';
-                            bouton.style.left = newLeft + 'px';
-                        }
-                    });
-                </script>
-            </div>
+                    bouton.style.top = newTop + 'px';
+                    bouton.style.left = newLeft + 'px';
+                }
+            });
+        </script>
+    </main>
 
-            
-        </main><br><br>
-        <footer>
-            <div class="contacts">
-                <p>Bug, problème ou curiosité? <a href="contacts.html"> Contactez-nous</a> </p>  
-            </div>
-                      
-        </footer>
-    </body>
+    <footer>
+        <div class="contacts">
+            <p>Bug, problème ou curiosité? <a href="contacts.html">Contactez-nous</a></p>  
+        </div>
+    </footer>
+</body>
 </html>
