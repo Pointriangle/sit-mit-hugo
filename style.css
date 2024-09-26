@@ -103,6 +103,19 @@ footer{
     display: block;
     justify-content: center;
     padding: 5px 50% 5%;
-    background-color: #7bb6d8;
+    background-color: #c5e0f1;
     color: #fff;
 }
+table {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  td, th {
+    border: 1px solid #22628a;
+    text-align: left;
+    background-color: #c5e0f1;
+    padding: 8px;
+  }
+  
+  
