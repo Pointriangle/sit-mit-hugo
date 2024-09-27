@@ -63,7 +63,6 @@ main {
 }
 
 h1 {
-    position:relative;
     margin-top: 0; 
     color: #333;
     font-size: 2.5rem;
@@ -467,5 +466,4 @@ h1::after{
     height:5px;
     width: 100%;
     left:0%;
-    position:absolute;
 }
