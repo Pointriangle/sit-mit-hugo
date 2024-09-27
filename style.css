@@ -77,9 +77,15 @@ h1 {
     max-width: 80%;
 }
 .icon {
-    width: 30px; 
+    width: 15px; 
     height: auto; 
     transition: transform 0.2s; 
+    text-decoration: none;
+}
+.email-link, .instagram-link {
+    display: inline-flex; 
+    align-items: center;
+    vertical-align: middle; 
 }
 .icon:hover {
     transform: scale(1.2); 
