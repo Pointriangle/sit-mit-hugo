@@ -63,6 +63,7 @@ main {
 }
 
 h1 {
+    position: relative;
     align-items: center;
     justify-content: center;
     position:flex;
@@ -474,3 +475,5 @@ h1 {
 }
 .h1-barre{
     position:relative
+}
+
