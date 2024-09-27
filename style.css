@@ -63,8 +63,7 @@ main {
 }
 
 h1 {
-    position:relative;
-    margin-top: 0; 
+     margin-top: 0; 
     color: #333;
     font-size: 2.5rem;
     margin-bottom: 10px;
@@ -449,10 +448,7 @@ h1 {
         margin-bottom: 10px;
     }
 }
-
-
-
-
+/*Frontière de l'intouchable ^ */
 .add{
     display: flex;
 }
@@ -461,11 +457,6 @@ h1 {
     width:50%;
     text-align: justify;
 }
-h1::after{
-    content:"";
-    background:#1d5372;
-    height:5px;
-    width: 100%;
-    left:0%;
-    position:absolute;
+
+   
 }
