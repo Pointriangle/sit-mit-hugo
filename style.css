@@ -63,6 +63,11 @@ main {
 }
 
 h1 {
+    
+    align-items: center;
+    justify-content: center;
+    position: flex;
+    text-align: center;
     margin-top: 0; 
     color: #333;
     font-size: 2.5rem;
@@ -352,7 +357,7 @@ h1 {
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .bandeau .btn {
@@ -385,7 +390,7 @@ h1 {
     }
 
     h1 {
-        font-size: var(--font-size-medium);
+        font-size: 1.2rem;
     }
 
     #question {
@@ -420,11 +425,11 @@ h1 {
     }
 
     h1 {
-        font-size: 1.2rem;
+        font-size: 0.8rem;
     }
 
     #question {
-        font-size: 0.8rem; 
+        font-size: 1rem; 
     }
 
     .btn {
