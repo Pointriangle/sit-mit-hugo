@@ -457,6 +457,11 @@ h1 {
     width:50%;
     text-align: justify;
 }
-
-   
+h1::after{
+    content:"";
+    background:#1d5372;
+    height:5px;
+    width: 100%;
+    left:0%;
+    position:absolute;
 }
