@@ -65,7 +65,7 @@ main {
 h1 {
     align-items: center;
     justify-content: center;
-    position: flex;
+    position:flex;
     text-align: center;
     margin-top: 0; 
     color: #333;
@@ -461,11 +461,17 @@ h1 {
     width:50%;
     text-align: justify;
 }
-h1::after{
+.h1-barre::after{
     content:"";
     background:#1d5372;
     height:5px;
     width: 100%;
     left:0%;
     position:absolute;
+    top:100%;
+    margin: top 10px;
+    border-radius: 100px;
+}
+.h1-barre{
+    position:relative
 }
