@@ -1,7 +1,7 @@
 /* Styles Global */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f8ff;
+    background-color: white;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,7 +15,6 @@ header {
     background-color: #bddbed;
     padding: 20px 0;
     text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 0; 
 }
 
@@ -24,11 +23,11 @@ header {
 }
 
 .logo img {
-    max-width: 500px; 
+    max-width: 100%; 
     height: auto;
 }
 
-.connecte{
+.connecte {
     font-size: x-large;
 }
 
@@ -53,7 +52,7 @@ header {
 }
 
 main {
-    flex-grow: 1; /* prend toute la fenêtre*/
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,16 +74,25 @@ h1 {
     margin: 20px 0;
     max-width: 80%;
 }
-
+.icon {
+    width: 30px; 
+    height: auto; 
+    transition: transform 0.2s; 
+}
+.icon:hover {
+    transform: scale(1.2); 
+}
 /* Buttons */
 #boutonFuyant {
     position: absolute;
     display: flex;
     justify-content: center;
     cursor: pointer;
-    z-index: 2; /* au 2e plan */
+    z-index: 2; 
 }
+
 .buttons {
+    text-decoration: none;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -101,6 +109,7 @@ h1 {
     background-color: #ccc;
     color: #666;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 .btn:hover {
@@ -116,30 +125,47 @@ h1 {
 .btn-restart:hover {
     background-color: #1d5372; 
 }
-
+.buttons-ajout{
+    .buttons {
+        text-align: center; 
+        margin-top: 20px; 
+    }
+}
 /* Footer */
 footer {
     margin-top: 50px;
     width: 100%;
     padding: 20px;
-    background-color: #22628a; 
+    background-color: #22628a;
     color: #fff;
     text-align: center;
     position: relative;
     bottom: 0;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 footer .contacts a {
     color: #fff;
     text-decoration: underline;
+    margin: 0 5px; 
+    font-size: 1rem; 
 }
-/*tableau*/
+
+footer .contacts a:hover {
+    text-decoration: none; 
+}
+
+/* Tableau */
 table {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-collapse: collapse; 
     width: 100%; 
     margin-top: 20px; 
+    border-radius: 10px;
 }
 
 td {
@@ -147,6 +173,7 @@ td {
     text-align: left; 
     padding: 12px;
     background-color: #bddbed; 
+    
 }
 
 th {
@@ -154,84 +181,24 @@ th {
     background-color: #22628a; 
     color: white; 
     font-weight: bold; 
+   
 }
-/*style contacte*/
-.contact-info {
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    flex-wrap: wrap; 
+/*ajout profr*/
+label {
+    display: block; 
+    margin-bottom: 10px; 
     text-align: center; 
 }
 
-
-.contact-info a {
-    margin: 0 10px; 
+input {
+    width: 80%; 
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    margin-bottom: 15px; 
+    display: inline-block; 
 }
-
-
-.icon {
-    width: 30px; 
-    height: auto; 
-    transition: transform 0.2s; 
-}
-
-
-.contact-info a:hover .icon {
-    transform: scale(1.2); /
-}
-
-/* Responsive Styles */
-/* tablette */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-    }
-
-    #question {
-        font-size: 1rem;
-        max-width: 90%;
-    }
-
-    .btn {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-    }
-
-    .logo img {
-        max-width: 200px;
-    }
-
-    .bandeau .btn {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-    }
-}
-/* telephone */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    #question {
-        font-size: 0.9rem;
-        max-width: 100%;
-    }
-
-    .btn {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-
-    .logo img {
-        max-width: 150px;
-    }
-
-    .bandeau .btn {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-}
+/*logo*/
 #logoa {
     animation-name: spin;
     animation-duration: 5000ms;
@@ -305,6 +272,179 @@ th {
 form{
     text-align: justify;
 }
+
+
+
+
+/* Responsive Styles */
+
+/* Define CSS variables for better maintainability */
+:root {
+    --footer-padding-large: 15px;
+    --footer-padding-medium: 10px;
+    --footer-padding-small: 8px;
+    --font-size-large: 2rem;
+    --font-size-medium: 1.5rem;
+    --font-size-small: 0.85rem 
+    --font-size-xsmall: 0.7rem
+    --btn-padding-large: 8px 16px;
+    --btn-padding-medium: 6px 12px;
+    --btn-padding-small: 4px 8px;
+}
+
+/*  stylw commun */
+footer {
+    padding: var(--footer-padding-large);
+    font-size: var(--font-size-xsmall);
+}
+
+footer .contacts {
+    display: flex;
+    gap: 5px;
+    flex-direction: column; 
+    text-align: center; 
+}
+
+footer .contacts a {
+    font-size: var(--font-size-small);
+    margin: 5px 0; 
+}
+
+h1 {
+    font-size: var(--font-size-large);
+}
+
+#question {
+    font-size: var(--font-size-small);
+    max-width: 90%;
+}
+
+.btn {
+    padding: var(--btn-padding-medium);
+    font-size: var(--font-size-small);
+    margin: 5px; 
+    cursor: pointer; 
+}
+
+.logo img {
+    max-width: 100%; 
+    height: auto; 
+}
+
+.bandeau {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    footer {
+        padding: var(--footer-padding-large); 
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .bandeau .btn {
+        padding: var(--btn-padding-medium);
+        font-size: var(--font-size-small);
+    }
+
+    h3 {
+        font-size: clamp(1rem, 3vw, 2rem); 
+    }
+    .logo img {
+        max-width: 100%; 
+        height: auto; 
+    }
+    
+    .bandeau {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Mobile */
+@media (max-width: 480px) {
+    footer {
+        padding: var(--footer-padding-medium); 
+        font-size: 0.85rem; 
+    }
+
+    h1 {
+        font-size: var(--font-size-medium);
+    }
+
+    #question {
+        font-size: 0.9rem; 
+        max-width: 100%;
+    }
+
+    .btn {
+        padding: var(--btn-padding-medium);
+        font-size: 0.8rem; 
+    }
+
+
+    .logo img {
+        max-width: 100%; 
+        height: auto; 
+    }
+    
+    .bandeau {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+}
+
+/* Petit téléphone */
+@media (max-width: 320px) {
+    footer {
+        padding: var(--footer-padding-small);
+        font-size: 0.8rem; 
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    #question {
+        font-size: 0.8rem; 
+    }
+
+    .btn {
+        padding: var(--btn-padding-small);
+        font-size: var(--font-size-xsmall); 
+        margin: 1px; 
+    }
+
+    h3 {
+        font-size: clamp(0.8rem, 2vw, 1.5rem); 
+    }
+    .logo img {
+        max-width: 100%; 
+        height: auto; 
+    }
+    
+    .bandeau {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+}
+
+
+
+
 .add{
     display: flex;
 }
