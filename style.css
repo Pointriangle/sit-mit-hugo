@@ -63,7 +63,6 @@ main {
 }
 
 h1 {
-    
     align-items: center;
     justify-content: center;
     position: flex;
@@ -453,10 +452,7 @@ h1 {
         margin-bottom: 10px;
     }
 }
-
-
-
-
+/*Frontière de l'intouchable ^ */
 .add{
     display: flex;
 }
@@ -471,4 +467,5 @@ h1::after{
     height:5px;
     width: 100%;
     left:0%;
+    position:absolute;
 }
