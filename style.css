@@ -198,7 +198,7 @@ input {
     margin-bottom: 15px; 
     display: inline-block; 
 }
-/*logo*/
+/*logo animation*/
 #logoa {
     animation-name: spin;
     animation-duration: 5000ms;
@@ -447,4 +447,9 @@ h1 {
 
 .add{
     display: flex;
+}
+#présentation{
+    display:flex;
+    width:50%;
+    text-align: justify;
 }
