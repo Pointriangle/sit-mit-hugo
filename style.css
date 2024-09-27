@@ -43,7 +43,7 @@ footer {
     width: 100%;
     padding: 20px;
     background-color: #22628a;
-    color: #fff;
+    color: #ffffff;
     text-align: center;
     position: relative;
     bottom: 0;
@@ -54,7 +54,7 @@ footer {
     align-items: center;
 }
 footer .contacts a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: underline;
     margin: 0 5px; 
     font-size: 1rem; 
@@ -88,7 +88,7 @@ h1 {
     position:flex;
     text-align: center;
     margin-top: 0; 
-    color: #333;
+    color: #000000;
     font-size: 2.5rem;
     margin-bottom: 10px;
     width:max-content;
@@ -125,7 +125,7 @@ label {
 input {
     width: 80%; 
     padding: 10px; 
-    border: 1px solid #ddd; 
+    border: 1px solid #dddddd; 
     border-radius: 4px; 
     margin-bottom: 15px; 
     display: inline-block; 
@@ -150,7 +150,7 @@ form{
 }
 .bandeau .btn {
     background-color: #22628a;
-    color: white;
+    color: #ffffff ;
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -218,7 +218,7 @@ form{
 }
 .btn-restart {
     background-color: #22628a; 
-    color: white;
+    color: #ffffff;
     cursor: pointer;
 }
 .btn-restart:hover {
@@ -255,7 +255,7 @@ td {
 th {
     border: 1px solid #22628a;
     background-color: #22628a; 
-    color: white; 
+    color: #ffffff; 
     font-weight: bold; 
    
 }
