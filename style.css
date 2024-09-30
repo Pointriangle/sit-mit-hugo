@@ -1,9 +1,15 @@
-/*
-#####################
-### Styles Global ###
-#####################  
-*/
-@media (prefers-color-scheme: light){
+/* Styles Global */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(208, 235, 237);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 header {
     width: 100%;
     background-color: #bddbed;
@@ -12,16 +18,39 @@ header {
     margin-bottom: 0; 
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #d7e4ed;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    }
+.logo {
+    margin-bottom: 20px;
+}
+
+.logo img {
+    max-width: 100%; 
+    height: auto;
+}
+
+.connecte {
+    font-size: x-large;
+}
+
+.bandeau {
+    padding: 20px 0;
+    margin-bottom: 20px; 
+}
+
+.bandeau .btn {
+    background-color: #22628a;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.bandeau .btn:hover {
+    background-color: #1d5372;
+}
+
 main {
     flex-grow: 1; 
     display: flex;
@@ -33,158 +62,27 @@ main {
     padding-top: 0; 
 }
 
-/*
-##############
-### footer ###
-##############
-*/ 
-
-footer {
-    margin-top: 50px;
-    width: 100%;
-    padding: 20px;
-    background-color: #22628a;
-    color: #ffffff;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-footer .contacts a {
-    color: #ffffff;
-    text-decoration: underline;
-    margin: 0 5px; 
-    font-size: 1rem; 
-}
-footer .contacts a:hover {
-    text-decoration: none; 
-}
-/*
-################
-### contacte ###
-################
-*/ 
-.logo {
-    margin-bottom: 20px;
-}
-.logo img {
-    max-width: 100%; 
-    height: auto;
-}
-
-/*
-#################
-### pragraphe ###
-#################
-*/
-
 h1 {
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    position:flex;
-    text-align: center;
     margin-top: 0; 
-    color: #000000;
+    color: #333;
     font-size: 2.5rem;
     margin-bottom: 10px;
-    width:max-content;
 }
-.h1-barre::after{
-    content:"";
-    background:#1d5372;
-    height:5px;
-    width: 100%;
-    left:0%;
-    position:absolute;
-    top:100%;
-    margin: top 10px;
-    border-radius: 100px;
-}
-.h1-barre{
-    position:relative
-}
+
 #question {
     font-size: 1.2rem;
     margin: 20px 0;
     max-width: 80%;
 }
-.email-link, .instagram-link {
-    display: inline-flex; 
-    align-items: center;
-    vertical-align: middle; 
-}
-label {
-    display: block; 
-    margin-bottom: 10px; 
-    text-align: center; 
-}
-input {
-    width: 80%; 
-    padding: 10px; 
-    border: 1px solid #dddddd; 
-    border-radius: 4px; 
-    margin-bottom: 15px; 
-    display: inline-block; 
-}
-form{
-    text-align: justify;
-}
-#présentation{
-    display:flex;
-    width:50%;
-    text-align: justify;
-}
-/*
-###############
-### bandeau ###
-###############
-*/
-
-.bandeau {
-    padding: 20px 0;
-    margin-bottom: 20px; 
-}
-.bandeau .btn {
-    background-color: #22628a;
-    color: #ffffff ;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin: 0 10px;
-    transition: background-color 0.3s ease;
-}
-.bandeau .btn:hover {
-    background-color: #1d5372;
-}
-
-/*
-############
-### icon ###
-############
-*/
-
 .icon {
-    width: 15px; 
+    width: 30px; 
     height: auto; 
     transition: transform 0.2s; 
-    text-decoration: none;
 }
 .icon:hover {
     transform: scale(1.2); 
 }
-
-/*
-###############
-### boutons ###
-############### 
-*/ 
-
+/* Buttons */
 #boutonFuyant {
     position: absolute;
     display: flex;
@@ -192,6 +90,7 @@ form{
     cursor: pointer;
     z-index: 2; 
 }
+
 .buttons {
     text-decoration: none;
     display: flex;
@@ -199,6 +98,7 @@ form{
     gap: 20px;
     margin-bottom: 20px;
 }
+
 .btn {
     cursor: pointer;
     color: black;
@@ -211,17 +111,17 @@ form{
     transition: background-color 0.3s ease;
     text-decoration: none;
 }
+
 .btn:hover {
     background-color: #bbb;
-    animation-name:bounce;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
 }
+
 .btn-restart {
     background-color: #22628a; 
-    color: #ffffff;
+    color: white;
     cursor: pointer;
 }
+
 .btn-restart:hover {
     background-color: #1d5372; 
 }
@@ -231,254 +131,13 @@ form{
         margin-top: 20px; 
     }
 }
-
-
-/*
-###############
-### tableau ###
-###############
-*/ 
-
-table {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-collapse: collapse; 
-    width: 100%; 
-    margin-top: 20px; 
-    border-radius: 10px;
-}
-td {
-    border: 1px solid #22628a; 
-    text-align: left; 
-    padding: 12px;
-    background-color: #bddbed; 
-    
-}
-th {
-    border: 1px solid #22628a;
-    background-color: #22628a; 
-    color: #ffffff; 
-    font-weight: bold; 
-   
-}
-
-
-/*
-######################
-### logovanimation ###
-######################  
-*/ 
-
-#logoa {
-    animation-name: spin;
-    animation-duration: 5000ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear; 
-    animation-fill-mode: forwards;
-    animation-play-state: paused;
-  }
-#logoa:hover{
-    animation-play-state:running
-  }
-  
-  @keyframes spin {
-      from {
-          transform:rotateY(0deg);
-      }
-      to {
-          transform:rotateY(360deg);
-      }
-  }
-
-@keyframes bounce{
-    0%{scale:1}
-    50%{scale:1.25}
-    100%{scale:1}
-}
-#logoc{
-    animation-name: tourne;
-    animation-duration: 5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-}
-@keyframes tourne{
-    0%{
-        scale:1;
-        transform:rotate(0deg)
-    }
-    50%{
-        scale: 0.05;
-        transform:rotate(180deg)
-    }
-    100%{
-        scale:1;
-        transform:rotate(360deg)
-    }
-}
-#logob{
-    position: relative;
-    animation-name:animsignin;
-    animation-duration: 5s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-@keyframes animsignin{
-    0%{
-        left: -30%;    
-    }
-    
-    100%{
-        left:30%;
-    }
-}
-
-
-/*
-########################
-### style responsive ###
-########################  
-*/
-
-
-/*
-################
-### tablette ###
-################  
-*/
-@media (max-width: 768px) {
-    .bandeau {
-        gap: 5px;
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: center;
-        margin-bottom: 10px;
-    }
-    footer {
-        padding: 15px; 
-    }
-    h1 {
-        font-size: 1.5rem;
-    }
-    .btn {
-        padding: 6px 12px; 
-        font-size: 0.85rem;
-    }
-    .logo img {
-        max-width: 100%; 
-        height: auto; 
-    }
-}
-
-/*
-#################
-### telephone ###
-################# 
-*/
-@media (max-width: 480px) {
-    .bandeau {
-        gap: 5px;
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: center;
-        margin-bottom: 10px;
-    }
-    footer {
-        padding: 10px; 
-        font-size: 0.85rem; 
-    }
-    h1 {
-        font-size: 1.2rem;
-    }
-    .btn {
-        padding: 6px 12px; 
-        font-size: 0.8rem; 
-    }
-    .logo img {
-        max-width: 100%; 
-        height: auto; 
-    }
-}
-/*
-#######################
-### Petit téléphone ###
-#######################  
-*/
-
-@media (max-width: 320px) {
-    .bandeau {
-        gap: 5px;
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: center;
-        margin-bottom: 10px;
-    }
-    footer {
-        padding: 8px; 
-        font-size: 0.8rem; 
-    }
-    h1 {
-        font-size: 0.8rem;
-    }
-    .btn {
-        padding: 4px 8px;
-        font-size: 0.7rem;
-        margin: 1px; 
-    }
-    .logo img {
-        max-width: 100%; 
-        height: auto; 
-    }
-}
-}
-/*
-###################
-### style foncé ###
-###################
-*/
-
-@media (prefers-color-scheme: dark){
-    header {
-    width: 100%;
-    background-color: #1e2a36; 
-    padding: 20px 0;
-    text-align: center;
-    margin-bottom: 0; 
-}
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121a23; 
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    color: #ffffff; 
-}
-main {
-    flex-grow: 1; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 0; 
-    padding-top: 0; 
-}
-
-/*
-##############
-### footer ###
-##############
-*/ 
-
+/* Footer */
 footer {
     margin-top: 50px;
     width: 100%;
     padding: 20px;
-    background-color: #1a4a61;
-    color: #ffffff;
+    background-color: #22628a;
+    color: #fff;
     text-align: center;
     position: relative;
     bottom: 0;
@@ -488,193 +147,19 @@ footer {
     justify-content: center;
     align-items: center;
 }
+
 footer .contacts a {
-    color: #9ccdf2; 
+    color: #fff;
     text-decoration: underline;
     margin: 0 5px; 
     font-size: 1rem; 
 }
+
 footer .contacts a:hover {
     text-decoration: none; 
 }
 
-/*
-################
-### contacte ###
-################
-*/ 
-
-.logo {
-    margin-bottom: 20px;
-}
-.logo img {
-    max-width: 100%; 
-    height: auto;
-}
-
-/*
-#################
-### paragraphe ###
-#################
-*/
-
-h1 {
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 0; 
-    color: #ffffff;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    width: max-content;
-}
-.h1-barre::after {
-    content: "";
-    background: #9ccdf2; 
-    height: 5px;
-    width: 100%;
-    left: 0%;
-    position: absolute;
-    top: 100%;
-    border-radius: 100px;
-}
-.h1-barre {
-    position: relative;
-}
-
-#question {
-    font-size: 1.2rem;
-    margin: 20px 0;
-    max-width: 80%;
-}
-.email-link, .instagram-link {
-    display: inline-flex; 
-    align-items: center;
-    vertical-align: middle; 
-}
-label {
-    display: block; 
-    margin-bottom: 10px; 
-    text-align: center; 
-    color: #ffffff;
-}
-input {
-    width: 80%; 
-    padding: 10px; 
-    border: 1px solid #3b4f61; 
-    border-radius: 4px; 
-    margin-bottom: 15px; 
-    display: inline-block; 
-    background-color: #2c3a4b; 
-    color: #ffffff; 
-}
-
-form {
-    text-align: justify;
-}
-#présentation {
-    display: flex;
-    width: 50%;
-    text-align: justify;
-}
-
-/*
-###############
-### bandeau ###
-###############
-*/
-
-.bandeau {
-    padding: 20px 0;
-    margin-bottom: 20px; 
-}
-.bandeau .btn {
-    background-color: #1a4a61;
-    color: #ffffff ;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin: 0 10px;
-    transition: background-color 0.3s ease;
-}
-.bandeau .btn:hover {
-    background-color: #163b4d;
-}
-
-/*
-############
-### icon ###
-############
-*/
-
-.icon {
-    width: 15px; 
-    height: auto; 
-    transition: transform 0.2s; 
-    text-decoration: none;
-}
-.icon:hover {
-    transform: scale(1.2); 
-}
-
-/*
-###############
-### boutons ###
-############### 
-*/ 
-
-#boutonFuyant {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2; 
-}
-.buttons {
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-.btn {
-    cursor: pointer;
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    background-color: #3b4f61;
-    color: #ffffff;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-}
-.btn:hover {
-    background-color: #495d71;
-    animation-name: bounce;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-.btn-restart {
-    background-color: #1a4a61; 
-    color: #ffffff;
-    cursor: pointer;
-}
-.btn-restart:hover {
-    background-color: #163b4d; 
-}
-.buttons-ajout .buttons {
-    text-align: center; 
-    margin-top: 20px; 
-}
-
-/*
-###############
-### tableau ###
-###############
-*/ 
-
+/* Tableau */
 table {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-collapse: collapse; 
@@ -682,26 +167,38 @@ table {
     margin-top: 20px; 
     border-radius: 10px;
 }
+
 td {
-    border: 1px solid #1a4a61; 
+    border: 1px solid #22628a; 
     text-align: left; 
     padding: 12px;
-    background-color: #2c3a4b; 
-    color: #ffffff;
+    background-color: #bddbed; 
+    
 }
+
 th {
-    border: 1px solid #1a4a61;
-    background-color: #1a4a61; 
-    color: #ffffff; 
+    border: 1px solid #22628a;
+    background-color: #22628a; 
+    color: white; 
     font-weight: bold; 
+   
+}
+/*ajout profr*/
+label {
+    display: block; 
+    margin-bottom: 10px; 
+    text-align: center; 
 }
 
-/*
-######################
-### logovanimation ###
-######################  
-*/ 
-
+input {
+    width: 80%; 
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    margin-bottom: 15px; 
+    display: inline-block; 
+}
+/*logo*/
 #logoa {
     animation-name: spin;
     animation-duration: 5000ms;
@@ -710,7 +207,7 @@ th {
     animation-fill-mode: forwards;
     animation-play-state: paused;
   }
-#logoa:hover{
+  #logoa:hover{
     animation-play-state:running
   }
   
@@ -722,7 +219,11 @@ th {
           transform:rotateY(360deg);
       }
   }
-
+  .btn:hover{
+    animation-name:bounce;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+ }
 @keyframes bounce{
     0%{scale:1}
     50%{scale:1.25}
@@ -749,6 +250,7 @@ th {
         transform:rotate(360deg)
     }
 }
+
 #logob{
     position: relative;
     animation-name:animsignin;
@@ -765,105 +267,184 @@ th {
     100%{
         left:30%;
     }
+
+}
+form{
+    text-align: justify;
 }
 
 
-/*
-########################
-### style responsive ###
-########################  
-*/
 
 
-/*
-################
-### tablette ###
-################  
-*/
+/* Responsive Styles */
+
+/* Define CSS variables for better maintainability */
+:root {
+    --footer-padding-large: 15px;
+    --footer-padding-medium: 10px;
+    --footer-padding-small: 8px;
+    --font-size-large: 2rem;
+    --font-size-medium: 1.5rem;
+    --font-size-small: 0.85rem 
+    --font-size-xsmall: 0.7rem
+    --btn-padding-large: 8px 16px;
+    --btn-padding-medium: 6px 12px;
+    --btn-padding-small: 4px 8px;
+}
+
+/*  stylw commun */
+footer {
+    padding: var(--footer-padding-large);
+    font-size: var(--font-size-xsmall);
+}
+
+footer .contacts {
+    display: flex;
+    gap: 5px;
+    flex-direction: column; 
+    text-align: center; 
+}
+
+footer .contacts a {
+    font-size: var(--font-size-small);
+    margin: 5px 0; 
+}
+
+h1 {
+    font-size: var(--font-size-large);
+}
+
+#question {
+    font-size: var(--font-size-small);
+    max-width: 90%;
+}
+
+.btn {
+    padding: var(--btn-padding-medium);
+    font-size: var(--font-size-small);
+    margin: 5px; 
+    cursor: pointer; 
+}
+
+.logo img {
+    max-width: 100%; 
+    height: auto; 
+}
+
+.bandeau {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Tablet */
 @media (max-width: 768px) {
-    .bandeau {
-        gap: 5px;
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: center;
-        margin-bottom: 10px;
-    }
     footer {
-        padding: 15px; 
+        padding: var(--footer-padding-large); 
     }
+
     h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
-    .btn {
-        padding: 6px 12px; 
-        font-size: 0.85rem;
+
+    .bandeau .btn {
+        padding: var(--btn-padding-medium);
+        font-size: var(--font-size-small);
+    }
+
+    h3 {
+        font-size: clamp(1rem, 3vw, 2rem); 
     }
     .logo img {
         max-width: 100%; 
         height: auto; 
     }
-}
-
-/*
-#################
-### telephone ###
-################# 
-*/
-@media (max-width: 480px) {
+    
     .bandeau {
-        gap: 5px;
         display: flex;
         flex-wrap: wrap; 
         justify-content: center;
         margin-bottom: 10px;
     }
+}
+
+
+/* Mobile */
+@media (max-width: 480px) {
     footer {
-        padding: 10px; 
+        padding: var(--footer-padding-medium); 
         font-size: 0.85rem; 
     }
+
+    h1 {
+        font-size: var(--font-size-medium);
+    }
+
+    #question {
+        font-size: 0.9rem; 
+        max-width: 100%;
+    }
+
+    .btn {
+        padding: var(--btn-padding-medium);
+        font-size: 0.8rem; 
+    }
+
+
+    .logo img {
+        max-width: 100%; 
+        height: auto; 
+    }
+    
+    .bandeau {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+}
+
+/* Petit téléphone */
+@media (max-width: 320px) {
+    footer {
+        padding: var(--footer-padding-small);
+        font-size: 0.8rem; 
+    }
+
     h1 {
         font-size: 1.2rem;
     }
-    .btn {
-        padding: 6px 12px; 
+
+    #question {
         font-size: 0.8rem; 
+    }
+
+    .btn {
+        padding: var(--btn-padding-small);
+        font-size: var(--font-size-xsmall); 
+        margin: 1px; 
+    }
+
+    h3 {
+        font-size: clamp(0.8rem, 2vw, 1.5rem); 
     }
     .logo img {
         max-width: 100%; 
         height: auto; 
     }
-}
-/*
-#######################
-### Petit téléphone ###
-#######################  
-*/
-
-@media (max-width: 320px) {
+    
     .bandeau {
-        gap: 5px;
         display: flex;
         flex-wrap: wrap; 
         justify-content: center;
         margin-bottom: 10px;
     }
-    footer {
-        padding: 8px; 
-        font-size: 0.8rem; 
-    }
-    h1 {
-        font-size: 0.8rem;
-    }
-    .btn {
-        padding: 4px 8px;
-        font-size: 0.7rem;
-        margin: 1px; 
-    }
-    .logo img {
-        max-width: 100%; 
-        height: auto; 
-    }
-}
 }
 
 
+
+
+.add{
+    display: flex;
+}
