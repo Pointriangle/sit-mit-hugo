@@ -134,10 +134,10 @@
     form{
         text-align: justify;
     }
-    #présentation{
+    #presentation{
         display:flex;
         width:50%;
-        text-align: justify;
+        text-align:justify;
     }
     /*
     ###############
