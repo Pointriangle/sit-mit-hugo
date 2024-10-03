@@ -68,6 +68,9 @@
     ### contacte ###
     ################
     */ 
+    .photo{
+        size:25%
+    }
     .logo {
         margin-bottom: 20px;
     }
