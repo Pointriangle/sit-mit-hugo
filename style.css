@@ -231,7 +231,14 @@
             margin-top: 20px; 
         }
     }
-    
+    #btn-admin{
+        float: left;
+        color: #d7e4ed;
+        padding: 1px 1px;
+    }
+    #btn-admin:hover {
+        cursor:default;
+        }
     
     /*
     ###############
@@ -668,6 +675,14 @@
         text-align: center; 
         margin-top: 20px; 
     }
+    #btn-admin{
+        float: left;
+        color: #121a23;
+        padding: 1px 1px;
+    }
+    #btn-admin:hover {
+        cursor:default;
+        }
     
     /*
     ###############
