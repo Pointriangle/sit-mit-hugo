@@ -1,3 +1,5 @@
+
+
 :root {
     --bddbed: #bddbed; 
     --d7e4ed: #d7e4ed;
@@ -54,6 +56,11 @@
 
     header {
         width: 100%;
+        background-color: #bddbed;
+
+
+    header {
+        width: 100%;
         background-color: var(--bddbed);
         padding: 20px 0;
         text-align: center;
@@ -62,6 +69,7 @@
     
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #d7e4ed;
         background-color: var(--d7e4ed);
         display: flex;
         flex-direction: column;
@@ -161,7 +169,6 @@
         margin: top 10px;
         border-radius: 100px;
     }
-
     #question {
         font-size: 1.2rem;
         margin: 20px 0;
@@ -491,3 +498,5 @@
             height: auto; 
         }
     }
+}
+
