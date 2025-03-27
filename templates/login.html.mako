@@ -39,7 +39,7 @@
     
     <footer>
         <div class="contacts">
-            <p>Bug, problème ou curiosité ? <a href="${url_for('contact')}">Contactez-nous</a></p>  
+            <p>Bug, problème ou curiosité ? <a href="${url_for('contacts')}">Contactez-nous</a></p>  
         </div>
     </footer>
 </body>

@@ -55,7 +55,7 @@ def leaderboardpro():
 @app.route("/signin")
 def signin():
     return render_template('signin.html.mako')
-7.03
+app.run(debug=True)
 
 
 
