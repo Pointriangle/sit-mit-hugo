@@ -46,13 +46,13 @@ def leaderboardeleve():
 def login():
     
     if request.method == "GET":
-        return render_template("login.html.mako", error=None)
+        return render_template("login.html.mako")
     elif request.method == "POST":
         pseudo = request.form.get("pseudo")
         password = request.form.get("password")
    
         if not pseudo or not password:
-            return render_template("login.html.mako", error="Tous les champs sont requis.")
+            return render_template("login.html.mako")
         db = get_db()
         try:
             cursor = db.execute("SELECT pseudo, password,id  FROM users WHERE pseudo = ?",(pseudo,))
@@ -62,17 +62,17 @@ def login():
                 if user["password"] == password:
                     return redirect(url_for("jeu"), code=303)
                 else:
-                    return render_template("login.html.mako", error="Mot de passe incorrect.")
+                    return render_template("login.html.mako")
                 
             except TypeError:
-                return render_template("login.html.mako", error="Utilisateur non trouvé.")
+                return render_template("login.html.mako")
     
            
         
-        except ValidationError as e:
-            return render_template("login.html.mako", error=str(e))
-        except sqlite3.IntegrityError as ie:
-            return render_template("login.html.mako", error=str(ie))
+        except ValidationError:
+            return render_template("login.html.mako")
+        except sqlite3.IntegrityError:
+            return render_template("login.html.mako", )
         finally:
             db.rollback() 
 
