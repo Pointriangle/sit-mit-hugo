@@ -15,7 +15,7 @@ from flask_sqlite import get_db
 import sqlite3
 from random import randint
 from flask import Flask ,session # Importe le type Flask.
-app = Flask("SuperSite")  # Crée une application Flask nommée "SuperSite".
+app = Flask("Akiplanta")  # Crée une application Flask nommée "SuperSite".
 MakoTemplates(app)
 SQLiteExtension(app)
 class ValidationError(ValueError):
@@ -31,3 +31,5 @@ def index():
 @app.route("/accueil")
 def accueil():
     return render_template("accueil.html.mako")
+
+app.run(debug=True)

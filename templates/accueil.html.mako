@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>accueil</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <img id="logoa" src="Logo/LOGO.png" alt="Logo">
+            <img id="logoa" src="/Logo/LOGO.png" alt="Logo">
         </div>
         <div class="bandeau">
             <a class="btn " href="leaderboardpro.html">Les professeurs les plus recherchés</a> 
