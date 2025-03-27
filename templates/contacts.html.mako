@@ -22,12 +22,12 @@
         <p id="question" class="contact-info">
             Nous sommes joignables à l'adresse 
             <a href="mailto:zetancorp@gmail.com" class="instagram-link">
-                <img src="Logo/mail.png" alt="Email" class="icon">
+                <img src="${url_for('static',filename='mail.png')}" alt="Email" class="icon">
             </a>
         
             ou sur notre compte Instagram 
             <a href="https://www.instagram.com/zetancorp/" class="instagram-link">
-                <img src="Logo/insta.png" alt="Instagram" class="icon">
+                <img src="${url_for('static',filename='insta.png')}" alt="Instagram" class="icon">
             </a>
         </p>
     </main>
