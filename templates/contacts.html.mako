@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="logo">
-            <img src="/Logo/LOGO.png" alt="Logo">
+            <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
         </div>
     </header>
 
@@ -34,7 +34,7 @@
 
     <footer>
         <div class="contacts">
-            <p><a href="accueil.html">Retour à l'accueuil</a></p>
+            <p><a href="${url_for('accueil')}">Retour à l'accueuil</a></p>
         </div> 
     </footer>
 </body>

@@ -22,7 +22,7 @@
         <h1>Bienvenue sur AkiPlanta, le qui-est-ce <br> des professeurs!</h1>
         <p id="questions">Le concept du jeu est de faire deviner à la machine, en répondant à des questions fermées, l'identité d'un professeur du Lycée-Collège de la Planta</p> 
         <div class="buttons">
-            <a class="btn" href="login.html"> Se connecter </a>
+            <a class="btn" href="${url_for('login')}"> Se connecter </a>
             <a class="btn" href="signin.html"> Créer un compte </a>  
         </div>
         <div class="buttons">

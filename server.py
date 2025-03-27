@@ -45,6 +45,16 @@ def leaderboardeleve():
 @app.route("/login")
 def login():
     return render_template('login.html.mako')
+
+@app.route("/jeu")
+def jeu():
+    return render_template('jeu.html.mako')
+@app.route("/leaderboardpro")
+def leaderboardpro():
+    return render_template('leaderboardpro.html.mako')
+@app.route("/signin")
+def signin():
+    return render_template('signin.html.mako')
 7.03
 
 
