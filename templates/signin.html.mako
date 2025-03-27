@@ -29,7 +29,7 @@
                     <a class="btn" href="${url_for('login')}">Déjà un compte ?</a>
                 </div>
             % if error is not None:
-                <p style= "color:red">ERREUR: ${error} </p>
+                <p style="color:red">ERREUR:${error} </p>
             %endif
             </form>
         </div>

@@ -86,7 +86,7 @@ def leaderboardpro():
 def signin():
     if request.method== "GET":
         return render_template('signin.html.mako')
-    elif request.method=="POST":
+    elif request.method=="POST": 
         try:
             if request.form["password"]!= request.form["confirm"]:
                 raise ValidationError("Les mots de passe ne correspondent pas.")
