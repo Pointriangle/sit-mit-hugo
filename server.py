@@ -42,9 +42,41 @@ def ajoutprof():
 def leaderboardeleve():
     return render_template('leaderboardeleve.html.mako')
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template('login.html.mako')
+    
+    if request.method == "GET":
+        return render_template("login.html.mako", error=None)
+    elif request.method == "POST":
+        pseudo = request.form.get("pseudo")
+        password = request.form.get("password")
+   
+        if not pseudo or not password:
+            return render_template("login.html.mako", error="Tous les champs sont requis.")
+        db = get_db()
+        try:
+            cursor = db.execute("SELECT pseudo, password,id  FROM users WHERE pseudo = ?",(pseudo,))
+            user = cursor.fetchone()
+            try:
+            
+                if user["password"] == password:
+                    session.clear()
+                    session["user_id"]=user["id"]
+                    return redirect(url_for("profile", pseudo=pseudo), code=303)
+                else:
+                    return render_template("login.html.mako", error="Mot de passe incorrect.")
+                
+            except TypeError:
+                return render_template("login.html.mako", error="Utilisateur non trouvé.")
+    
+           
+        
+        except ValidationError as e:
+            return render_template("login.html.mako", error=str(e))
+        except sqlite3.IntegrityError as ie:
+            return render_template("login.html.mako", error=str(ie))
+        finally:
+            db.rollback() 
 
 @app.route("/jeu")
 def jeu():
