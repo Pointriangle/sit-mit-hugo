@@ -9,12 +9,12 @@
 <body>
     <header>
         <div class="logo">
-            <img src="/Logo/LOGO.png" alt="Logo">
+            <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
         </div>
         <div class="bandeau">
-            <a class="btn" href="leaderboardpro.html">Les professeurs les plus recherchés</a> 
-            <a class="btn" href="leaderboardeleve.html">Les plus gros joueurs</a>
-            <a class="btn" href="accueil.html">Log out</a>
+            <a class="btn" href="${url_for('leaderbordpro')}">Les professeurs les plus recherchés</a> 
+            <a class="btn" href="${url_for('leaderbordeleve')}">Les plus gros joueurs</a>
+            <a class="btn" href="${url_for('acceuil')}">Log out</a>
         </div>
     </header>
 
@@ -34,7 +34,7 @@
 
     <footer>
         <div class="contacts">
-            <p>Bug, problème ou curiosité ? <a href="contacts.html">Contactez-nous</a></p>  
+            <p>Bug, problème ou curiosité ? <a href="${url_for('contact')}">Contactez-nous</a></p>  
         </div>
     </footer>
 </body>

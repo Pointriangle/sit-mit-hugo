@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="logo">
-            <img id="logob" src="/Logo/LOGO.png" alt="Logo">
+            <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
         </div>
     </header>
     
@@ -35,8 +35,8 @@
                 </label>
                 
                 <div class="buttons">
-                    <a class="btn" href="jeu.html">S'inscrire</a>
-                    <a class="btn" href="login.html">Déjà un compte ?</a>
+                    <a class="btn" href="${url_for('jeu')}">S'inscrire</a>
+                    <a class="btn" href="${url_for('login')}">Déjà un compte ?</a>
                 </div>
             </form>
         </div>
@@ -44,7 +44,7 @@
     
     <footer>
         <div class="contacts">
-            <p>Bug, problème ou curiosité ? <a href="contacts.html">Contactez-nous</a></p>  
+            <p>Bug, problème ou curiosité ? <a href="${url_for('contact')}">Contactez-nous</a></p>  
         </div>
     </footer>
 </body>

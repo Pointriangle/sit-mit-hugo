@@ -11,7 +11,7 @@
         <div class="logo">
             <img id="logob" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
             <div class="bandeau">
-              <a class="btn" href="accueil.html">Retour à l'accueuil</a>
+              <a class="btn" href="${url_for('accueil')}">Retour à l'accueuil</a>
             </div>
             
             

@@ -30,8 +30,8 @@
                 </label>
                 <br><br>
                 <div class="buttons">
-                    <a class="btn" href="jeu.html">Se connecter</a> 
-                    <a class="btn" href="signin.html">Pas encore de compte?</a>
+                    <a class="btn" href="${url_for('jeu')}">Se connecter</a> 
+                    <a class="btn" href="${url_for('signin')}">Pas encore de compte?</a>
                 </div>
             </form>
         </div>

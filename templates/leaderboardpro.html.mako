@@ -9,9 +9,9 @@
 <body>
     <header>
         <div class="logo">
-            <img src="/Logo/LOGO.png" alt="Logo">
+            <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
             <div class="bandeau">
-                <a class="btn" href="accueil.html">Retour à l'accueuil</a>
+                <a class="btn" href="${url_for('accueil')}">Retour à l'accueuil</a>
             </div>
             
         </div>
@@ -49,7 +49,7 @@
     
     <footer>
         <div class="contacts">
-            <p>Bug, problème ou curiosité ? <a href="contacts.html">Contactez-nous</a></p>  
+            <p>Bug, problème ou curiosité ? <a href="${url_for('contact')}">Contactez-nous</a></p>  
         </div>
     </footer>
 </body>

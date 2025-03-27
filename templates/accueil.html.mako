@@ -13,7 +13,7 @@
             <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
         </div>
         <div class="bandeau">
-            <a class="btn " href="leaderboardpro.html">Les professeurs les plus recherchés</a> 
+            <a class="btn " href="${urlfor('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn " href="leaderboardeleve.html">Les plus gros joueurs</a>
         </div>
     </header>
@@ -23,12 +23,12 @@
         <p id="questions">Le concept du jeu est de faire deviner à la machine, en répondant à des questions fermées, l'identité d'un professeur du Lycée-Collège de la Planta</p> 
         <div class="buttons">
             <a class="btn" href="${url_for('login')}"> Se connecter </a>
-            <a class="btn" href="signin.html"> Créer un compte </a>  
+            <a class="btn" href="${url_for('signin')}"> Créer un compte </a>  
         </div>
         <div class="buttons">
             <a href="https://www.youtube.com/watch?v=1oOOEBd0UnE" class="btn" id="boutonFuyant">Jouer sans se connecter</a>
         </div>
-        <a id="btn-admin" href="ajoutprof.html">.</a>
+        <a id="btn-admin" href="${url_for('ajoutprof')}">.</a>
         <script>
             const bouton = document.getElementById('boutonFuyant');
             
@@ -52,7 +52,7 @@
 
     <footer>
         <div class="contacts">
-            <p>Bug, problème ou curiosité? <a href="contacts.html">Contactez-nous</a></p>  
+            <p>Bug, problème ou curiosité? <a href="${url_for('contact')}">Contactez-nous</a></p>  
         </div>
     </footer>
 </body>
