@@ -12,8 +12,8 @@
             <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
         </div>
         <div class="bandeau">
-            <a class="btn" href="${url_for('leaderbordpro')}">Les professeurs les plus recherchés</a> 
-            <a class="btn" href="${url_for('leaderbordeleve')}">Les plus gros joueurs</a>
+            <a class="btn" href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
+            <a class="btn" href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             <a class="btn" href="${url_for('acceuil')}">Log out</a>
         </div>
     </header>
