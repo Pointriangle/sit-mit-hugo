@@ -16,7 +16,7 @@
     <main>
         <h1 class="h1-barre">Ravis de vous revoir !</h1>
         <div class="login">
-            <form>
+            <form method="POST">
                 <label>
                     <h3>Se connecter</h3>
                 </label>
@@ -29,8 +29,9 @@
                     <input class="field" type="password" id="password" name="password" required> 
                 </label>
                 <br><br>
-                <div class="buttons" type="submit">
-                    <a class="btn" href="${url_for('jeu')}">Se connecter</a> 
+                
+                <div class="buttons">
+                    <input class="btn" type= "submit" value="Se connecter" />
                     <a class="btn" href="${url_for('signin')}">Pas encore de compte?</a>
                 </div>
             </form>
