@@ -15,26 +15,38 @@
     
     <main>
         <h1 class="h1-barre">Bienvenue dans l'équipe !</h1>
-        <div class="signup">
-            <h3>Créer un compte</h3>
+        <div class="login">
             <form method="POST">
-                <label for="pseudo">Nom d'utilisateur</label>
-                <input type="text" id="pseudo" name="pseudo" required/> 
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required/> 
-                <label for="confirm">Confirmer le mot de passe</label>
-                <input type="password" id="confirm" name="confirm" required /> 
+                <label>
+                    <h3>Créer un compte</h3>
+                </label>
+                <label for="pseudo">
+                    <p>Nom d'utilisateur</p>
+                    <input class="field" type="text" id="pseudo" name="pseudo" required> 
+                </label>
+                
+                <label for="password">
+                    <p>Mot de passe</p>
+                    <input class="field" type="password" id="password" name="password" required> 
+                </label>
+
+                <label for="confirm">
+                    <p>Confirmer le mot de passe</p>
+                    <input class="field" type="password" id="confirm" name="confirm" required> 
+                </label>
+                
                 <div class="buttons">
-                    <input type="submit" class="btn" value="S'inscrire"/>
+                    <input class="btn" type="submit" value="S'inscrire" />
                     <a class="btn" href="${url_for('login')}">Déjà un compte ?</a>
                 </div>
-            % if error is not None:
-                <p style="color:red">ERREUR:${error} </p>
-            %endif
             </form>
         </div>
+        
+        % if error is not None:
+            <p style="color: red">ERREUR: ${error}</p>
+        % endif
     </main>
-    
+
     <footer>
         <div class="contacts">
             <p>Bug, problème ou curiosité ? <a href="${url_for('contacts')}">Contactez-nous</a></p>  

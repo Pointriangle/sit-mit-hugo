@@ -84,22 +84,31 @@ def leaderboardpro():
     return render_template('leaderboardpro.html.mako')
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
-    if request.method== "GET":
-        return render_template('signin.html.mako')
-    elif request.method=="POST": 
+    if request.method == "GET":
+        return render_template('signin.html.mako', error=None)  
+    
+    elif request.method == "POST": 
+        db = get_db()
         try:
-            if request.form["password"]!= request.form["confirm"]:
+            if request.form["password"] != request.form["confirm"]:
                 raise ValidationError("Les mots de passe ne correspondent pas.")
-            db=get_db()
-            db.execute("INSERT INTO users (pseudo,password,created_at) VALUES (?,?,?)",(request.form["pseudo"],request.form["password"],datetime.now()))
+
+            db.execute(
+                "INSERT INTO users (pseudo, password, created_at) VALUES (?, ?, ?)",
+                (request.form["pseudo"], request.form["password"], datetime.now()),
+            )
             db.commit()
             return redirect(url_for("jeu"), code=303)
+        
         except ValidationError as e:
-                return render_template("signin.html.mako", error=str(e))
+            return render_template("signin.html.mako", error=str(e))
+        
         except sqlite3.IntegrityError as ie:
-                return render_template("signin.html.mako", error=str(ie))
+            return render_template("signin.html.mako", error="Ce nom d'utilisateur est déjà pris.")
+        
         finally:
-                db.rollback()
+            db.rollback()
+
 app.run(debug=True)
 
 
