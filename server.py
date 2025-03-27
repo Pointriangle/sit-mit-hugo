@@ -58,11 +58,9 @@ def login():
             cursor = db.execute("SELECT pseudo, password,id  FROM users WHERE pseudo = ?",(pseudo,))
             user = cursor.fetchone()
             try:
-            
+
                 if user["password"] == password:
-                    session.clear()
-                    session["user_id"]=user["id"]
-                    return redirect(url_for("profile", pseudo=pseudo), code=303)
+                    return redirect(url_for("jeu"), code=303)
                 else:
                     return render_template("login.html.mako", error="Mot de passe incorrect.")
                 
