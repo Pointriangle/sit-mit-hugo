@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="logo">
-            <img id="logoa" src="/Logo/LOGO.png" alt="Logo">
+            <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
         </div>
         <div class="bandeau">
             <a class="btn " href="leaderboardpro.html">Les professeurs les plus recherchés</a> 
