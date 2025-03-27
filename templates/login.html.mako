@@ -22,14 +22,14 @@
                 </label>
                 <label>
                     <p>Nom d'utilisateur</p>
-                    <input type="text" > 
+                    <input  class="field" type="text" id="pseudo" name="pseudo" required> 
                 </label>
                 <label>
                     <p>Mot de passe</p>
-                    <input type="password" > 
+                    <input class="field" type="password" id="password" name="password" required> 
                 </label>
                 <br><br>
-                <div class="buttons">
+                <div class="buttons" type="submit">
                     <a class="btn" href="${url_for('jeu')}">Se connecter</a> 
                     <a class="btn" href="${url_for('signin')}">Pas encore de compte?</a>
                 </div>
