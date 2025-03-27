@@ -15,7 +15,7 @@
 
     <main>
         <h3>Zêta&Corp : qui sommes-nous ?</h3>
-        <img src="Logo/Pointbendo.png" id="photo">
+        <img src="${url_for('static',filename='Pointbendo.png')}" id="photo">
         <p id="presentation">Le collectif Zêta&Corp rassemble deux codeurs du nom de Pointriangle et Bendospeed9. Les deux créateurs de ce jeu se sont rencontrés et ont développé leur amitié grâce aux jeux vidéo, et ont donc voulu en créer un petit pour un projet scolaire. Ce site en est le résultat.</p>
         
         <h3 classe="h1-barre">Nous contacter</h3>
