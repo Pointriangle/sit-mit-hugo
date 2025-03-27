@@ -32,4 +32,7 @@ def index():
 def accueil():
     return render_template("accueil.html.mako")
 
+app.route("/contacts")
+def contacts():
+    return render_template("contacts.html.mako")
 app.run(debug=True)
