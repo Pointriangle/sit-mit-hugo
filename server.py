@@ -84,13 +84,13 @@ def jeu():
 @app.route("/leaderboardpro")
 def leaderboardpro():
     return render_template('leaderboardpro.html.mako')
-@app.route("/signin")
+@app.route("/signin", methods=["GET", "POST"])
 def signin():
     if request.method== "GET":
         return render_template('signin.html.mako')
     elif request.method=="POST":
        db=get_db()
-       db.execute("INSERT INTO users (pseudo,password,created_at) VALUES (?,?,?)",request.form["pseudo"],request.form["password"],datetime.now())
+       db.execute("INSERT INTO users (pseudo,password,created_at) VALUES (?,?,?)",(request.form["pseudo"],request.form["password"],datetime.now()))
        db.commit()
        return redirect(url_for("jeu"), code=303)
 app.run(debug=True)
