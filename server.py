@@ -32,7 +32,56 @@ def index():
 def accueil():
     return render_template("accueil.html.mako")
 
-app.route("/contacts")
+@app.route("/contacts")
 def contacts():
     return render_template("contacts.html.mako")
+@app.route("/ajoutprof")
+def ajoutprof():
+    return render_template('ajoutprof.html.mako')
+@app.route("/leaderboardeleve")
+def leaderboardeleve():
+    return render_template('leaderboardeleve.html.mako')
+
+@app.route("/login")
+def login():
+    return render_template('login.html.mako')
+7.03
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.run(debug=True)
