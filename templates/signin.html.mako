@@ -16,26 +16,16 @@
     <main>
         <h1 class="h1-barre">Bienvenue dans l'équipe !</h1>
         <div class="signup">
-            <form>
-                <label>
-                    <h3>Créer un compte</h3>
-                </label>
-                <label>
-                    <p>Nom d'utilisateur</p>
-                    <input type="text" > 
-                </label>
-                <label>
-                    <p>Mot de passe</p>
-                    <input type="password" > 
-                </label>
-                
-                <label>
-                    <p>Confirmer le mot de passe</p>
-                    <input type="password" > 
-                </label>
-                
+            <h3>Créer un compte</h3>
+            <form method="POST">
+                <label for="pseudo">Nom d'utilisateur</label>
+                <input type="text" id="pseudo" required/> 
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" required/> 
+                <label for="confirm">Confirmer le mot de passe</label>
+                <input type="password" id="confirm" required /> 
                 <div class="buttons">
-                    <a class="btn" href="${url_for('jeu')}">S'inscrire</a>
+                    <input type="submit" class="btn" value="S'inscrire"/>
                     <a class="btn" href="${url_for('login')}">Déjà un compte ?</a>
                 </div>
             </form>
