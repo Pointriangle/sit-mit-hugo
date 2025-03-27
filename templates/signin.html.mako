@@ -19,7 +19,7 @@
             <h3>Créer un compte</h3>
             <form method="POST">
                 <label for="pseudo">Nom d'utilisateur</label>
-                <input type="text" id="pseudo" name="pseudo"required/> 
+                <input type="text" id="pseudo" name="pseudo" required/> 
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required/> 
                 <label for="confirm">Confirmer le mot de passe</label>
@@ -28,6 +28,9 @@
                     <input type="submit" class="btn" value="S'inscrire"/>
                     <a class="btn" href="${url_for('login')}">Déjà un compte ?</a>
                 </div>
+            % if error is not None:
+                <p style= "color:red">ERREUR: ${error} </p>
+            %endif
             </form>
         </div>
     </main>

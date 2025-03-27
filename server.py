@@ -89,10 +89,19 @@ def signin():
     if request.method== "GET":
         return render_template('signin.html.mako')
     elif request.method=="POST":
-       db=get_db()
-       db.execute("INSERT INTO users (pseudo,password,created_at) VALUES (?,?,?)",(request.form["pseudo"],request.form["password"],datetime.now()))
-       db.commit()
-       return redirect(url_for("jeu"), code=303)
+        try:
+            if request.form["password"]!= request.form["confirm"]:
+                raise ValidationError("Les mots de passe ne correspondent pas.")
+            db=get_db()
+            db.execute("INSERT INTO users (pseudo,password,created_at) VALUES (?,?,?)",(request.form["pseudo"],request.form["password"],datetime.now()))
+            db.commit()
+            return redirect(url_for("jeu"), code=303)
+        except ValidationError as e:
+                return render_template("signin.html.mako", error=str(e))
+        except sqlite3.IntegrityError as ie:
+                return render_template("signin.html.mako", error=str(ie))
+        finally:
+                db.rollback()
 app.run(debug=True)
 
 
