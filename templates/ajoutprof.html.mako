@@ -20,29 +20,35 @@
     
     <main>
         <h1 class="h1-barre">Ajout de Professeurs à deviner</h1>
-        <form id="ajoutProfesseurForm">
-            <label for="etablissement">Nom</label>
-            <input type="text" id="etablissement" required>
+        <form id="ajoutProfesseurForm" method="POST">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" required>
 
             <label for="branche">Branche</label>
-            <input type="text" id="branche" required>
+            <input type="text" id="branche" name="branche" required>
 
-            <label for="couleurCheveux">Couleur des Cheveux</label>
-            <input type="text" id="couleurCheveux" required>
+            <label for="couleur_cheveux">Couleur des Cheveux</label>
+            <input type="text" id="couleur_cheveux" name="couleur_cheveux" required>
 
-            <label for="couleurYeux">Couleur des Yeux</label>
-            <input type="text" id="couleurYeux" required>
+            <label for="couleur_yeux">Couleur des Yeux</label>
+            <input type="text" id="couleur_yeux" name="couleur_yeux"required>
 
             <label for="taille">Taille (grand, petit, moyen)</label>
-            <input type="text" id="taille" required>
+            <input type="text" id="taille" name="taille" required>
 
             <label for="genre">Genre</label>
-            <input type="text" id="genre" required>
+            <input type="text" id="genre" name="genre" required>
             
             <div class="buttons-ajout">
-                <button  class="btn">Ajouter professeur</button> 
+                <input  type="submit" class="btn"value="Ajouter professeur"> 
             </div>
         </form>
+        %if error is not None:
+        <p style="color:red">${error}</p>
+        %endif
+        %if validation:
+        <p style="color:green">Professeur enregistré</p>
+        %endif
     </main>
 
     <footer>

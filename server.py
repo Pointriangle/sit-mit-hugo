@@ -35,9 +35,27 @@ def accueil():
 @app.route("/contacts")
 def contacts():
     return render_template("contacts.html.mako")
-@app.route("/ajoutprof")
+@app.route("/ajoutprof", methods=["GET", "POST"])
 def ajoutprof():
-    return render_template('ajoutprof.html.mako')
+    if request.method == "GET":
+        return render_template('ajoutprof.html.mako',error=None,validation=False) 
+    
+    elif request.method == "POST": 
+        db = get_db()
+        try:
+
+            db.execute(
+                "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,branche,created_at) VALUES (?, ?, ?,?,?,?,?)",
+                (request.form["name"], request.form["genre"],request.form["couleur_yeux"],request.form["couleur_cheveux"],request.form["taille"],request.form["branche"],datetime.now())
+            )
+            db.commit()
+            return render_template("ajoutprof.html.mako", validation=True,error=None)
+        
+        except sqlite3.IntegrityError as ie:
+            return render_template("ajoutprof.html.mako", error="Ce professeur est déja enregistré.",validation=False)
+        
+        finally:
+            db.rollback()
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
     return render_template('leaderboardeleve.html.mako')
