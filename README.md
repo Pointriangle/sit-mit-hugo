@@ -1,8 +1,7 @@
-
-Bienvenue sur le site de Bendospeed9 et Pointriangle 
-Nous allons faire un un super site internet!! Wow!!!
-Nous allons faire un akinator des profs du LCP. 
-
+Akinator est un jeu très populaire. Sorte de qui est-ce en ligne, elle a animé notre enfance. Mais maintenant, nous avons les capacités de passer de client à développeur.
+Voici donc notre AkiPlanta, un jeu basé sur Akinator, mais avec des personnalités de notre école.
+Voilà depuis les 12 septembre que nous travaillons dessus.
+Amusez-vous bien!
 
 
 
