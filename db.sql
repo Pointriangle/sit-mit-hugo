@@ -20,7 +20,3 @@ CREATE TABLE teachers (
     points INTEGER DEFAULT 0,   
     created_at DATETIME 
 );
-INSERT INTO users where pseudo='c',(admin)
-VALUES (1);
-INSERT INTO users where pseudo='b',(admin)
-VALUES (1);

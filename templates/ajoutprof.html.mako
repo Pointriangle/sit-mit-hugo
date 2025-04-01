@@ -12,9 +12,13 @@
             <img id="logob" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
         </div>
         <div class="bandeau">
+            <a class="btn" href="${url_for('jeu')}">Jeu</a>
             <a class="btn" href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn" href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
-            <a class="btn" href="${url_for('accueil')}">Log out</a>
+            % if is_logged_in: 
+                <a class="btn" href="${url_for('logout')}">Log out</a>
+            % endif
+            
         </div>
     </header>
     

@@ -14,7 +14,7 @@
                 % if is_logged_in:
                     <a class="btn" href="${url_for('jeu')}">Jeu</a>
                 % endif
-                <a class="btn" href="${url_for('accueil')}">Retour à l'accueil</a>
+                <a class="btn" href="${url_for('logout')}">Retour à l'accueil</a>
             </div>
         </div>
     </header>

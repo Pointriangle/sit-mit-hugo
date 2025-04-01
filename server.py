@@ -33,13 +33,19 @@ def index():
 
 @app.route("/accueil")
 def accueil():
-    return render_template("accueil.html.mako")
+    is_logged_in = "pseudo" in session  
+    return render_template("accueil.html.mako",is_logged_in=is_logged_in)
 
 @app.route("/contacts")
 def contacts():
     return render_template("contacts.html.mako")
 @app.route("/ajoutprof", methods=["GET", "POST"])
 def ajoutprof():
+    if "pseudo" not in session:
+        return redirect(url_for("login"), code=303)
+
+    if not session.get("admin", False):
+        abort(403) 
     if request.method == "GET":
         return render_template('ajoutprof.html.mako',error=None,validation=False) 
     
@@ -52,7 +58,8 @@ def ajoutprof():
                 (request.form["name"], request.form["genre"],request.form["couleur_yeux"],request.form["couleur_cheveux"],request.form["taille"],request.form["branche"],datetime.now())
             )
             db.commit()
-            return render_template("ajoutprof.html.mako", validation=True,error=None)
+            is_logged_in = "pseudo" in session  
+            return render_template("ajoutprof.html.mako", validation=True,error=None,is_logged_in=is_logged_in)
         
         except sqlite3.IntegrityError as ie:
             return render_template("ajoutprof.html.mako", error="Ce professeur est déja enregistré.",validation=False)
@@ -90,8 +97,11 @@ def login():
 
 @app.route("/jeu")
 def jeu():
-    is_admin = session.get("admin", False)  
-    return render_template("jeu.html.mako", is_admin=is_admin)
+    if "pseudo" not in session:
+        return redirect(url_for("login"), code=303)
+    is_admin = session.get("admin", False)
+    is_logged_in = "pseudo" in session    
+    return render_template("jeu.html.mako", is_admin=is_admin,is_logged_in=is_logged_in)
 
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
