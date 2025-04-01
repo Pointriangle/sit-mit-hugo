@@ -96,6 +96,7 @@ def login():
 
 @app.route("/jeu")
 def jeu():
+    
     return render_template('jeu.html.mako')
 @app.route("/leaderboardpro")
 def leaderboardpro():
