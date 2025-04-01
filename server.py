@@ -65,41 +65,37 @@ def leaderboardeleve():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    
     if request.method == "GET":
         return render_template("login.html.mako")
     elif request.method == "POST":
         pseudo = request.form.get("pseudo")
         password = request.form.get("password")
-   
+
         if not pseudo or not password:
-            return render_template("login.html.mako")
+            return render_template("login.html.mako", error="Remplissez tous les champs.")
+
         db = get_db()
         try:
-            cursor = db.execute("SELECT pseudo, password,id  FROM users WHERE pseudo = ?",(pseudo,))
+            cursor = db.execute("SELECT pseudo, password, id, admin FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
-            try:
 
-                if user["password"] == password:
-                    return redirect(url_for("jeu"), code=303)
-                else:
-                    return render_template("login.html.mako")
-                
-            except TypeError:
-                return render_template("login.html.mako")
-    
-           
-        
-        except ValidationError:
-            return render_template("login.html.mako")
-        except sqlite3.IntegrityError:
-            return render_template("login.html.mako", )
+            if user and user["password"] == password:
+                session["pseudo"] = pseudo
+                session["admin"] = bool(user["admin"])  # Stocke si l'utilisateur est admin
+                return redirect(url_for("jeu"), code=303)
+            else:
+                return render_template("login.html.mako", error="Identifiants incorrects.")
+
+        except sqlite3.Error:
+            return render_template("login.html.mako", error="Erreur de connexion à la base de données.")
+
         finally:
-            db.rollback() 
+            db.rollback()
+
 
 @app.route("/jeu")
 def jeu():
-    
+    is_admin = session.get("admin", False) 
     return render_template('jeu.html.mako')
 @app.route("/leaderboardpro")
 def leaderboardpro():
