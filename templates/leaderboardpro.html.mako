@@ -21,28 +21,19 @@
         <h1 class="h1-barre">Leaderboard des professeurs</h1>
         <table>
             <tr>
-                <th>Clasement</th> 
-                <th>Professeurs les plus recherchés</th>
-            </tr>
-            <tr>
                 <td>1</td>
-                <td>Monsieur Després</td>
+                <td>${teachers[0]["name"]}</td>
+                <td>${teachers[0]["points"]}</td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>Mme Otz</td> 
+                <td>${teachers[1]["name"]}</td>
+                <td>${teachers[1]["points"]}</td>
             </tr>
             <tr>
                 <td>3</td>
-                <td>Monsieur Mivelaz</td> 
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Monsieur Posse</td> 
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Monsieur Bridel </td> 
+                <td>${teachers[2]["name"]}</td>
+                <td>${teachers[2]["points"]}</td>
             </tr>
         </table>
     </main>

@@ -28,18 +28,18 @@
             </tr>
             <tr>
                 <td>1</td>
-                <td>Pointriangle</td>
-                <td>167</td>
+                <td>${users[0]["pseudo"]}</td>
+                <td>${users[0]["points"]}</td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>Bendospeed9</td>
-                <td>134</td>
+                <td>${users[1]["pseudo"]}</td>
+                <td>${users[1]["points"]}</td>
             </tr>
             <tr>
                 <td>3</td>
-                <td>PseudoGivri</td>
-                <td>12</td>
+                <td>${users[2]["pseudo"]}</td>
+                <td>${users[2]["points"]}</td>
             </tr>
         </table>
     </main>

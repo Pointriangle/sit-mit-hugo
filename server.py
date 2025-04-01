@@ -58,7 +58,10 @@ def ajoutprof():
             db.rollback()
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
-    return render_template('leaderboardeleve.html.mako')
+    db = get_db()
+    cursor = db.execute("SELECT pseudo,points FROM users ORDER BY points DESC limit 3")
+    users = cursor.fetchall() 
+    return render_template('leaderboardeleve.html.mako',users=users)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -100,7 +103,10 @@ def jeu():
     return render_template('jeu.html.mako')
 @app.route("/leaderboardpro")
 def leaderboardpro():
-    return render_template('leaderboardpro.html.mako')
+    db = get_db()
+    cursor = db.execute("SELECT name,points FROM teachers ORDER BY points DESC limit 3")
+    teachers = cursor.fetchall() 
+    return render_template('leaderboardpro.html.mako',teachers=teachers)
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
     if request.method == "GET":

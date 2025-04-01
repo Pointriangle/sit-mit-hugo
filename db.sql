@@ -3,7 +3,8 @@ PRAGMA encoding="UTF-8";
 CREATE TABLE users (
     id INTEGER PRIMARY KEY ,
     pseudo TEXT NOT NULL UNIQUE, 
-    password TEXT NOT NULL,  
+    password TEXT NOT NULL,
+    points INTEGER DEFAULT 0,  
     created_at DATETIME 
 );
 CREATE TABLE teachers (
