@@ -21,7 +21,7 @@
             % endif 
             <a class="btn" href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn" href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
-            <a class="btn" href="${url_for('accueil')}">Log out</a>
+            <a class="btn" href="${url_for('logout')}">Log out</a>
         </div>
     </header>
 

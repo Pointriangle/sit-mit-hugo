@@ -36,6 +36,9 @@
                 </div>
             </form>
         </div>
+        % if error :
+            <p style="color: red">ERREUR: ${error}</p>
+        % endif
     </main>
     
 

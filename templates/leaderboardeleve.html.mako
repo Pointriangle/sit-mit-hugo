@@ -9,12 +9,13 @@
 <body>
     <header>
         <div class="logo">
-            <img id="logob" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
+            <img id="logob" src="${url_for('static', filename='LOGO.png')}" alt="Logo">
             <div class="bandeau">
-              <a class="btn" href="${url_for('accueil')}">Retour à l'accueuil</a>
+                % if is_logged_in:
+                    <a class="btn" href="${url_for('jeu')}">Jeu</a>
+                % endif
+                <a class="btn" href="${url_for('accueil')}">Retour à l'accueil</a>
             </div>
-            
-            
         </div>
     </header>
 
@@ -42,6 +43,9 @@
                 <td>${users[2]["points"]}</td>
             </tr>
         </table>
+
+       
+        
     </main>
 
     <footer>

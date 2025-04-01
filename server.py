@@ -59,12 +59,7 @@ def ajoutprof():
         
         finally:
             db.rollback()
-@app.route("/leaderboardeleve")
-def leaderboardeleve():
-    db = get_db()
-    cursor = db.execute("SELECT pseudo,points FROM users ORDER BY points DESC limit 3")
-    users = cursor.fetchall() 
-    return render_template('leaderboardeleve.html.mako',users=users)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -88,8 +83,8 @@ def login():
                 return redirect(url_for("jeu"), code=303)
             else:
                 return render_template("login.html.mako", error="Identifiants incorrects.")
-        except sqlite3.Error:
-            return render_template("login.html.mako", error="Erreur de connexion à la base de données.")
+        except ValidationError as e:
+            return render_template("login.html.mako", error=str(e))
         finally:
             db.rollback()
 
@@ -98,12 +93,22 @@ def jeu():
     is_admin = session.get("admin", False)  
     return render_template("jeu.html.mako", is_admin=is_admin)
 
+@app.route("/leaderboardeleve")
+def leaderboardeleve():
+    db = get_db()
+    cursor = db.execute("SELECT pseudo, points FROM users ORDER BY points DESC limit 3")
+    users = cursor.fetchall() 
+    is_logged_in = "pseudo" in session  
+    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in)
+
 @app.route("/leaderboardpro")
 def leaderboardpro():
     db = get_db()
-    cursor = db.execute("SELECT name,points FROM teachers ORDER BY points DESC limit 3")
+    cursor = db.execute("SELECT name, points FROM teachers ORDER BY points DESC limit 3")
     teachers = cursor.fetchall() 
-    return render_template('leaderboardpro.html.mako',teachers=teachers)
+    is_logged_in = "pseudo" in session  # Vérification si l'utilisateur est connecté
+    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in)
+
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
     if request.method == "GET":
@@ -120,6 +125,8 @@ def signin():
                 (request.form["pseudo"], request.form["password"], datetime.now()),
             )
             db.commit()
+            pseudo=request.form["pseudo"]
+            session["pseudo"] = pseudo
             return redirect(url_for("jeu"), code=303)
         
         except ValidationError as e:
@@ -130,6 +137,11 @@ def signin():
         
         finally:
             db.rollback()
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return render_template("logout.html.mako")
 
 app.run(debug=True)
 
