@@ -1,10 +1,10 @@
-# -*- encoding: utf-8 -*-
+
 """
 Server Web d'exemple écrit en Python avec Flask.
 """
 import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-# S'assure de pouvoir démarrer le serveur depuis n'importe quel dossier.
+
 from flask import abort,request, redirect, url_for
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
@@ -14,10 +14,13 @@ from flask_sqlite import SQLiteExtension
 from flask_sqlite import get_db
 import sqlite3
 from random import randint
-from flask import Flask ,session # Importe le type Flask.
-app = Flask("Akiplanta")  # Crée une application Flask nommée "SuperSite".
+from flask import Flask ,session 
+app = Flask("Akiplanta")  
 MakoTemplates(app)
 SQLiteExtension(app)
+app.secret_key = os.urandom(24)  
+
+
 class ValidationError(ValueError):
     """Error in users provided values."""
     pass
@@ -81,22 +84,20 @@ def login():
 
             if user and user["password"] == password:
                 session["pseudo"] = pseudo
-                session["admin"] = bool(user["admin"])  # Stocke si l'utilisateur est admin
+                session["admin"] = bool(user["admin"])
                 return redirect(url_for("jeu"), code=303)
             else:
                 return render_template("login.html.mako", error="Identifiants incorrects.")
-
         except sqlite3.Error:
             return render_template("login.html.mako", error="Erreur de connexion à la base de données.")
-
         finally:
             db.rollback()
 
-
 @app.route("/jeu")
 def jeu():
-    is_admin = session.get("admin", False) 
-    return render_template('jeu.html.mako')
+    is_admin = session.get("admin", False)  
+    return render_template("jeu.html.mako", is_admin=is_admin)
+
 @app.route("/leaderboardpro")
 def leaderboardpro():
     db = get_db()

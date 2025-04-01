@@ -8,15 +8,17 @@
 </head>
 <body>
     <header>
+        
+
         <div class="logo">
-            <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
+            <img id="logoa" src="${url_for('static', filename='LOGO.png')}" alt="Logo">
         </div>
         <div class="bandeau">
-            <% if is_admin: %>
+            % if is_admin: 
                 <a class="btn" href="${url_for('ajoutprof')}">
-                <button>Ajouter un professeur</button>
-            </a>
-            <% endif %>
+                    Ajouter un professeur
+                </a>
+            % endif 
             <a class="btn" href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn" href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             <a class="btn" href="${url_for('accueil')}">Log out</a>

@@ -140,27 +140,29 @@
     
     h1 {
         position: relative;
-        align-items: center;
-        justify-content: center;
-        position:flex;
         text-align: center;
-        margin-top: 0; 
         color: var(--d000000);
         font-size: 2.5rem;
+        margin-top: 0;
         margin-bottom: 10px;
-        width:max-content;
+        width: max-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    .h1-barre::after{
-        content:"";
+    
+    .h1-barre::after {
+        content: "";
         background: var(--d1d537);
-        height:5px;
+        height: 5px;
         width: 100%;
-        left:0%;
-        position:absolute;
-        top:100%;
-        margin: top 10px;
+        position: absolute;
+        bottom: -10px;
+        left: 0;
         border-radius: 100px;
     }
+    
+
 
     #question {
         font-size: 1.2rem;
@@ -185,9 +187,15 @@
         margin-bottom: 15px; 
         display: inline-block; 
     }
-    form{
-        text-align: justify;
+    form {
+        display: flex;              
+        flex-direction: column;  
+        align-items: center;       
+        justify-content: center;                         
+        max-width: 400px;            
+        margin: 0 auto;               
     }
+    
     #presentation{
         display:flex;
         width:50%;

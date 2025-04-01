@@ -1,13 +1,14 @@
 PRAGMA encoding="UTF-8";
 
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY ,
-    pseudo TEXT NOT NULL UNIQUE, 
+    id INTEGER PRIMARY KEY,
+    pseudo TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     points INTEGER DEFAULT 0,
-    admin INTEGER DEFAULT 0,  
-    created_at DATETIME 
+    admin BOOLEAN DEFAULT 1,
+    created_at DATETIME
 );
+
 CREATE TABLE teachers (
     id INTEGER PRIMARY KEY ,
     name TEXT NOT NULL UNIQUE,
