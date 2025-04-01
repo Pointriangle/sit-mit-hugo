@@ -5,7 +5,7 @@ CREATE TABLE users (
     pseudo TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     points INTEGER DEFAULT 0,
-    admin BOOLEAN DEFAULT 1,
+    admin BOOLEAN DEFAULT 0,
     created_at DATETIME
 );
 
@@ -20,3 +20,7 @@ CREATE TABLE teachers (
     points INTEGER DEFAULT 0,   
     created_at DATETIME 
 );
+INSERT INTO users where pseudo='c',(admin)
+VALUES (1);
+INSERT INTO users where pseudo='b',(admin)
+VALUES (1);
