@@ -116,7 +116,7 @@ def leaderboardpro():
     db = get_db()
     cursor = db.execute("SELECT name, points FROM teachers ORDER BY points DESC limit 3")
     teachers = cursor.fetchall() 
-    is_logged_in = "pseudo" in session  # Vérification si l'utilisateur est connecté
+    is_logged_in = "pseudo" in session  
     return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in)
 
 @app.route("/signin", methods=["GET", "POST"])
