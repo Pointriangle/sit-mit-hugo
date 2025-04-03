@@ -167,7 +167,7 @@ def signin():
 def logout():
     session.clear()
     return render_template("logout.html.mako")
-<<<<<<< HEAD
+
 @app.route("/profil/<pseudo>")
 def profil(pseudo):
     if "pseudo" not in session:
@@ -176,17 +176,46 @@ def profil(pseudo):
     cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
     user = cursor.fetchone() 
     return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
-=======
+
 
 
 def algo ():
     db = get_db()
-    cursor = db.execute("SELECT * FROM teatchers,questions ")
-    data = cursor.fetchall() 
+    questions = db.execute("SELECT id, type FROM question")
+    best_question = None
+    best_balance = 0
+    
+    for question in questions:
+        q_id = question[0]
+        q_type = question[1]
+        
+        cursor = db.execute(f"SELECT {q_type} FROM teachers")
+        responses = []
+        for q_type in cursor:
+            responses.append(q_type)
+        
+        c0 = 0
+        c1 = 0
+        for response in responses:
+            if response == "0":
+                c0 =c0+ 1
+            elif response == "1":
+                c1 = c1+ 1
+        
+        if c0 > 0 and c1 > 0:
+            b = min(c0, c1) / max(c0, c1)
+            if b > brat:
+                brat = b
+                bq = (q_id, q_type)
+    print(best_question)
+
+    return best_question
+
+algo()
     
 
 
->>>>>>> e03fd1ee8f971e6b200cfdf9c8c67636d4938b02
+
 app.run(debug=True)
 
 

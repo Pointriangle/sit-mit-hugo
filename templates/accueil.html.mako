@@ -31,7 +31,7 @@
         <div class="buttons">
             <a href='https://www.youtube.com/watch?v=1oOOEBd0UnE' class="btn" id="boutonFuyant">Jouer sans se connecter</a>
         </div>
-        <a id="btn-admin" href="${url_for('ajoutprof')}">.</a>
+        
         <script>
             const bouton = document.getElementById('boutonFuyant');
             
