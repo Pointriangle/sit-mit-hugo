@@ -236,7 +236,7 @@ def profil(pseudo):
         
         finally:
             db.rollback()
-    return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
+    return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
 
 
 
