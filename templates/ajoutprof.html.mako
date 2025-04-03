@@ -32,17 +32,26 @@
             <input type="text" id="branche" name="branche" required>
 
             <label for="couleur_cheveux">Couleur des Cheveux</label>
-            <input type="text" id="couleur_cheveux" name="couleur_cheveux" required>
-
+            <select id="couleur_cheveux" name="couleur_cheveux" required>
+                <option>Sombre</option>
+                <option>Clair</option>
+            </select>
             <label for="couleur_yeux">Couleur des Yeux</label>
-            <input type="text" id="couleur_yeux" name="couleur_yeux"required>
-
-            <label for="taille">Taille (grand, petit, moyen)</label>
-            <input type="text" id="taille" name="taille" required>
+            <select type="text" id="couleur_yeux" name="couleur_yeux"required>
+                <option>Clairs</option>
+                <option>Sombres</option>
+            </select>
+            <label for="taille">Taille </label>
+            <select type="text" id="taille" name="taille" required>
+                <option>Grand</option>
+                <option>Petit</option>
+            </select>
 
             <label for="genre">Genre</label>
-            <input type="text" id="genre" name="genre" required>
-            
+            <select type="text" id="genre" name="genre" required>
+                <option>Homme</option>
+                <option>Femme</option>
+            </select>
             <div class="buttons-ajout">
                 <input  type="submit" class="btn"value="Ajouter professeur"> 
             </div>
