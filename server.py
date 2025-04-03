@@ -116,7 +116,7 @@ def jeu():
         return redirect(url_for("login"), code=303)
     is_admin = session.get("admin", False)
     is_logged_in = "pseudo" in session    
-    return render_template("jeu.html.mako", is_admin=is_admin,is_logged_in=is_logged_in)
+    return render_template("jeu.html.mako", is_admin=is_admin,is_logged_in=is_logged_in,pseudo=session.get("pseudo"))
 
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
