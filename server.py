@@ -52,10 +52,25 @@ def ajoutprof():
     elif request.method == "POST": 
         db = get_db()
         try:
-
+            if request.form['genre']=="Homme":
+                genre=0
+            else:
+                genre=1
+            if request.form['couleur_yeux']=="Clairs":
+                couleur_yeux=0
+            else:
+                couleur_yeux=1
+            if request.form['couleur_cheveux']=="Clairs":
+                couleur_cheveux=0
+            else:
+                couleur_cheveux=1
+            if request.form['taille']=="Petit":
+                taille=0
+            else:
+                taille=1
             db.execute(
                 "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,branche,created_at) VALUES (?, ?, ?,?,?,?,?)",
-                (request.form["name"], request.form["genre"],request.form["couleur_yeux"],request.form["couleur_cheveux"],request.form["taille"],request.form["branche"],datetime.now())
+                (request.form['name'], genre,couleur_yeux,couleur_cheveux,taille,request.form["branche"],datetime.now())
             )
             db.commit()
             is_logged_in = "pseudo" in session  
