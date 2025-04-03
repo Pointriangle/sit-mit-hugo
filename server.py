@@ -210,6 +210,8 @@ def logout():
 def profil(pseudo):
     if "pseudo" not in session:
         return redirect(url_for("login"), code=303)
+    if session.get("pseudo") != pseudo:
+        return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
     db = get_db()
     cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
     user = cursor.fetchone() 
