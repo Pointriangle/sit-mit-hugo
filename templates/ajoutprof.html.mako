@@ -34,7 +34,7 @@
             <label for="couleur_cheveux">Couleur des Cheveux</label>
             <select id="couleur_cheveux" name="couleur_cheveux" required>
                 <option>Sombres</option>
-                <option>Clais</option>
+                <option>Clairs</option>
             </select>
             <label for="couleur_yeux">Couleur des Yeux</label>
             <select type="text" id="couleur_yeux" name="couleur_yeux"required>
