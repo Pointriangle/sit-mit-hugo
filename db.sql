@@ -20,3 +20,9 @@ CREATE TABLE teachers (
     points INTEGER DEFAULT 0,   
     created_at DATETIME 
 );
+CREATE TABLE question (
+    id INTEGER PRIMARY KEY ,
+    type TEXT NOT NULL UNIQUE,
+    q TEXT NOT NULL UNIQUE
+    
+);
