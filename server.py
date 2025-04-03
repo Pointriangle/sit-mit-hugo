@@ -169,6 +169,11 @@ def logout():
     return render_template("logout.html.mako")
 
 
+def algo ():
+    db = get_db()
+    cursor = db.execute("SELECT * FROM teatchers,questions ")
+    data = cursor.fetchall() 
+    
 
 
 app.run(debug=True)
