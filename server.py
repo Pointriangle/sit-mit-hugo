@@ -19,6 +19,7 @@ app = Flask("Akiplanta")
 MakoTemplates(app)
 SQLiteExtension(app)
 app.secret_key = os.urandom(24)  
+import hashlib
 
 
 class ValidationError(ValueError):
@@ -98,8 +99,9 @@ def login():
         try:
             cursor = db.execute("SELECT pseudo, password, id, admin FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
-
-            if user and user["password"] == password:
+            hash = hashlib.sha256(request.form["password"].encode())
+            hpassword = hash.hexdigest()
+            if user and hpassword == user["password"]:
                 session["pseudo"] = pseudo
                 session["admin"] = bool(user["admin"])
                 return redirect(url_for("jeu"), code=303)
@@ -182,10 +184,11 @@ def signin():
         try:
             if request.form["password"] != request.form["confirm"]:
                 raise ValidationError("Les mots de passe ne correspondent pas.")
-
+            hash = hashlib.sha256(request.form["password"].encode())
+            password = hash.hexdigest()
             db.execute(
                 "INSERT INTO users (pseudo, password, created_at) VALUES (?, ?, ?)",
-                (request.form["pseudo"], request.form["password"], datetime.now()),
+                (request.form["pseudo"], password, datetime.now()),
             )
             db.commit()
             pseudo=request.form["pseudo"]
@@ -206,15 +209,34 @@ def logout():
     session.clear()
     return render_template("logout.html.mako")
 
-@app.route("/profil/<pseudo>")
+@app.route("/profil/<pseudo>",methods=["GET", "POST"])
 def profil(pseudo):
-    if "pseudo" not in session:
-        return redirect(url_for("login"), code=303)
-    db = get_db()
-    cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
-    user = cursor.fetchone() 
-    return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
-
+    if request.method=='GET':
+        if "pseudo" not in session:
+            return redirect(url_for("login"), code=303)
+        if session.get("pseudo") != pseudo:
+            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
+        db = get_db()
+        cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+        user = cursor.fetchone() 
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
+    elif request.method == "POST": 
+        db = get_db()
+        try:
+            if request.form["nmdp"] != request.form["confirm"]:
+                raise ValidationError("Les mots de passe ne correspondent pas.")
+            hash = hashlib.sha256(request.form["nmdp"].encode())
+            password = hash.hexdigest()
+            db.execute(
+                "UPDATE users SET password=? WHERE pseudo=?",
+                (password,session.get("pseudo"),))
+            db.commit()
+        except ValidationError as e:
+            return render_template("signin.html.mako", error=str(e))
+        
+        finally:
+            db.rollback()
+    return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
 
 
 
