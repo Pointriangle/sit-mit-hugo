@@ -209,17 +209,34 @@ def logout():
     session.clear()
     return render_template("logout.html.mako")
 
-@app.route("/profil/<pseudo>")
+@app.route("/profil/<pseudo>",methods=["GET", "POST"])
 def profil(pseudo):
-    if "pseudo" not in session:
-        return redirect(url_for("login"), code=303)
-    if session.get("pseudo") != pseudo:
-        return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
-    db = get_db()
-    cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
-    user = cursor.fetchone() 
+    if request.method=='GET':
+        if "pseudo" not in session:
+            return redirect(url_for("login"), code=303)
+        if session.get("pseudo") != pseudo:
+            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
+        db = get_db()
+        cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+        user = cursor.fetchone() 
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
+    elif request.method == "POST": 
+        db = get_db()
+        try:
+            if request.form["nmdp"] != request.form["confirm"]:
+                raise ValidationError("Les mots de passe ne correspondent pas.")
+            hash = hashlib.sha256(request.form["nmdp"].encode())
+            password = hash.hexdigest()
+            db.execute(
+                "UPDATE users SET password=? WHERE pseudo=?",
+                (password,session.get("pseudo"),))
+            db.commit()
+        except ValidationError as e:
+            return render_template("signin.html.mako", error=str(e))
+        
+        finally:
+            db.rollback()
     return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
-
 
 
 
