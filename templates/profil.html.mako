@@ -29,11 +29,7 @@
         <div class="buttons">
             <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
             <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
-        </div>
-        <div class="buttons">
-            <a href='https://www.youtube.com/watch?v=1oOOEBd0UnE' class="btn" id="boutonFuyant">Jouer sans se connecter</a>
-        </div>
-        
+        </div>     
     </main>
 
     <footer>

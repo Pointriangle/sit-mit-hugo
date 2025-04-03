@@ -17,6 +17,7 @@
             <a class="btn " href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             % if is_logged_in: 
                 <a class="btn" href="${url_for('logout')}">Log out</a>
+                <a class="btn" href="${url_for('profil',pseudo = session.get("pseudo"))}">Profil</a>
             % endif
         </div>
     </header>
