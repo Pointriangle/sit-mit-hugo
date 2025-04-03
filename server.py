@@ -153,6 +153,9 @@ def logout():
     session.clear()
     return render_template("logout.html.mako")
 
+
+
+
 app.run(debug=True)
 
 
