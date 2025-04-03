@@ -14,7 +14,7 @@
     </header>
 
         <main>
-        <h1 class="h1-barre">Aurevoir!!!</h1>
+        <h1 class="h1-barre">Au revoir!!!</h1>
         <br><br>
         <div class="buttons">
             <a class="btn" href="${url_for('accueil')}">Accueil</a>
