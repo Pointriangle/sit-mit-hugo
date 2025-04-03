@@ -167,7 +167,14 @@ def signin():
 def logout():
     session.clear()
     return render_template("logout.html.mako")
-
+@app.route("/profil/<pseudo>")
+def profil(pseudo):
+    if "pseudo" not in session:
+        return redirect(url_for("login"), code=303)
+    db = get_db()
+    cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+    user = cursor.fetchone() 
+    return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
 app.run(debug=True)
 
 
