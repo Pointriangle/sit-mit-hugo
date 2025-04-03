@@ -30,6 +30,7 @@
     <main>
         <h1 class="h1-barre">Bienvenue ${pseudo} dans AkiPlanta</h1>
         <p id="question">Pense à un personnage, je vais essayer de le deviner.</p>
+        <p id="question">${question}</p>
         
         <div class="buttons">
             <a class="btn">Oui</a>

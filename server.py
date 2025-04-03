@@ -114,9 +114,47 @@ def login():
 def jeu():
     if "pseudo" not in session:
         return redirect(url_for("login"), code=303)
+    
     is_admin = session.get("admin", False)
     is_logged_in = "pseudo" in session    
-    return render_template("jeu.html.mako", is_admin=is_admin,is_logged_in=is_logged_in,pseudo=session.get("pseudo"))
+
+    db = get_db()
+    cursor = db.execute("SELECT type, q FROM question")
+    questions = cursor.fetchall()
+
+    bq = None
+    brat = 0
+
+    for question in questions:
+        q_type = question[0]
+        text = question[1]
+
+        try:
+            cursor = db.execute(f"SELECT {q_type} FROM teachers")
+            rep = cursor.fetchall()
+            responses = [row[0] for row in rep]
+
+            c0 = 0
+            c1 = 0
+            
+            for response in responses:
+                if response == "0":
+                    c0 += 1
+                elif response == "1":
+                    c1 += 1
+
+            if c0 > 0 and c1 > 0:
+                b = min(c0, c1) / max(c0, c1)
+                if b > brat:
+                    brat = b
+                    bq = text 
+
+        except Exception as e:
+            return render_template("jeu.html.mako", error=str(e))
+
+    return render_template("jeu.html.mako", is_admin=is_admin, is_logged_in=is_logged_in, pseudo=session.get("pseudo"), question=bq)
+
+
 
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
@@ -179,39 +217,8 @@ def profil(pseudo):
 
 
 
-def algo ():
-    db = get_db()
-    questions = db.execute("SELECT id, type FROM question")
-    best_question = None
-    best_balance = 0
-    
-    for question in questions:
-        q_id = question[0]
-        q_type = question[1]
-        
-        cursor = db.execute(f"SELECT {q_type} FROM teachers")
-        responses = []
-        for q_type in cursor:
-            responses.append(q_type)
-        
-        c0 = 0
-        c1 = 0
-        for response in responses:
-            if response == "0":
-                c0 =c0+ 1
-            elif response == "1":
-                c1 = c1+ 1
-        
-        if c0 > 0 and c1 > 0:
-            b = min(c0, c1) / max(c0, c1)
-            if b > brat:
-                brat = b
-                bq = (q_id, q_type)
-    print(best_question)
 
-    return best_question
 
-algo()
     
 
 
