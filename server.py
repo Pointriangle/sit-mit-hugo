@@ -19,6 +19,7 @@ app = Flask("Akiplanta")
 MakoTemplates(app)
 SQLiteExtension(app)
 app.secret_key = os.urandom(24)  
+import hashlib
 
 
 class ValidationError(ValueError):
@@ -98,8 +99,9 @@ def login():
         try:
             cursor = db.execute("SELECT pseudo, password, id, admin FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
-
-            if user and user["password"] == password:
+            hash = hashlib.sha256(request.form["password"].encode())
+            hpassword = hash.hexdigest()
+            if user and hpassword == user["password"]:
                 session["pseudo"] = pseudo
                 session["admin"] = bool(user["admin"])
                 return redirect(url_for("jeu"), code=303)
@@ -182,10 +184,11 @@ def signin():
         try:
             if request.form["password"] != request.form["confirm"]:
                 raise ValidationError("Les mots de passe ne correspondent pas.")
-
+            hash = hashlib.sha256(request.form["password"].encode())
+            password = hash.hexdigest()
             db.execute(
                 "INSERT INTO users (pseudo, password, created_at) VALUES (?, ?, ?)",
-                (request.form["pseudo"], request.form["password"], datetime.now()),
+                (request.form["pseudo"], password, datetime.now()),
             )
             db.commit()
             pseudo=request.form["pseudo"]
