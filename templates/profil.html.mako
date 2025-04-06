@@ -41,12 +41,12 @@
                 </label>
 
                 <label for="confirm">
-                    <p>Confirmer le nouveau mot de passe</p>
+                    <p>confirmer le mot de passe</p>
                     <input class="field" type="password" id="confirm" name="confirm" required> 
                 </label>
                 
                 <div class="buttons">
-                    <input class="btn" type="submit" value="Changer de mot de passe" />
+                    <input class="btn" type="submit" value="valider" />
                 </div>
             </form> 
          <div class="buttons">
