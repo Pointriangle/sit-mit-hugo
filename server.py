@@ -211,18 +211,26 @@ def logout():
 
 @app.route("/profil/<pseudo>",methods=["GET", "POST"])
 def profil(pseudo):
+    error=None
     if request.method=='GET':
         if "pseudo" not in session:
             return redirect(url_for("login"), code=303)
         if session.get("pseudo") != pseudo:
-            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
+            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303,error=error)
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
         user = cursor.fetchone() 
-        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error)
     elif request.method == "POST": 
         db = get_db()
+        cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+        user = cursor.fetchone()
+        password = user["password"]
+        hash = hashlib.sha256(request.form["mdp"].encode())
+        hpassword = hash.hexdigest()
         try:
+            if hpassword!=password:
+                raise ValidationError("Mot de passe incorrect")
             if request.form["nmdp"] != request.form["confirm"]:
                 raise ValidationError("Les mots de passe ne correspondent pas.")
             hash = hashlib.sha256(request.form["nmdp"].encode())
@@ -232,11 +240,11 @@ def profil(pseudo):
                 (password,session.get("pseudo"),))
             db.commit()
         except ValidationError as e:
-            return render_template("signin.html.mako", error=str(e))
+            return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e))
         
         finally:
             db.rollback()
-    return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
+    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error))
 
 
 
