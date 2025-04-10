@@ -4,7 +4,7 @@ Server Web d'exemple écrit en Python avec Flask.
 """
 import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-
+import random
 from flask import abort,request, redirect, url_for
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
@@ -112,96 +112,138 @@ def login():
         finally:
             db.rollback()
 
+
 @app.route("/jeu", methods=["GET", "POST"])
 def jeu():
+    
     if "pseudo" not in session:
-        return redirect(url_for("login"), code=303)
-    
-    is_admin = session.get("admin", False)
-    is_logged_in = "pseudo" in session
+        return redirect(url_for("login"))
 
+    
     db = get_db()
+    pseudo = session["pseudo"]
+    is_admin = session.get("admin", False)  
+    is_logged_in = True  
+
     
-    # Initialisation ou récupération de la liste filtrée de professeurs
-    if 'filtered_teachers' not in session:
-        cursor = db.execute("SELECT id FROM teachers")
-        teachers = cursor.fetchall()
-        session['filtered_teachers'] = [teacher['id'] for teacher in teachers]
+    if "rep" not in session:
+        session["rep"] = {}
 
+    
     if request.method == "POST":
-        # Récupérer la réponse de l'utilisateur
-        response = request.form['response']
-        current_question_id = int(request.form['current_question_id'])
         
-        # Filtrer les professeurs en fonction de la réponse
-        if response == "oui":
-            db.execute(f"DELETE FROM filtered_teachers WHERE id NOT IN (SELECT teacher_id FROM teacher_answers WHERE question_id = ? AND answer = 1)", (current_question_id,))
-        else:  # "non"
-            db.execute(f"DELETE FROM filtered_teachers WHERE id NOT IN (SELECT teacher_id FROM teacher_answers WHERE question_id = ? AND answer = 0)", (current_question_id,))
+        if request.form.get("restart"):
+            session["rep"] = {}  
+            return redirect(url_for('jeu'))  
 
-        db.commit()
-
-        # Choisir la question suivante basée sur les professeurs restants
-        cursor = db.execute("SELECT id, type, q FROM question")
-        questions = cursor.fetchall()
-
-        best_question = None
-        max_ratio = 0
         
-        for question in questions:
-            q_type = question['type']
-            text = question['q']
+        question = request.form["question_type"]
+        repu = request.form["reponse"]
 
-            # Compter les réponses 0 et 1 pour chaque question
-            cursor = db.execute(f"SELECT {q_type} FROM teachers WHERE id IN ({', '.join(map(str, session['filtered_teachers']))})")
-            responses = cursor.fetchall()
+        
+        curseur = db.execute("SELECT oui FROM question WHERE type = ?", (question,))
+        ligne = curseur.fetchone()
 
-            c0 = sum(1 for response in responses if response[0] == 0)
-            c1 = sum(1 for response in responses if response[0] == 1)
+        
+        if ligne:
+            
+            vatt = ligne[0]
+
+            
+            if repu == "oui":
+                vg = str(vatt)
+            else:
+                
+                if vatt == 1:
+                    vg = "0"
+                else:
+                    vg = "1"
+
+            
+            session["rep"][question] = vg
+            session.modified = True  
+
+ 
+    curseur = db.execute("SELECT type, q, oui FROM question")
+    qall = curseur.fetchall()
+    qres = []  
+
+  
+    for q in qall:
+        
+        if q[0] not in session["rep"]:
+            qres.append(q) 
+
+    
+    curseur = db.execute("SELECT * FROM teachers")
+    nomc = [] 
+
+    
+    for desc in curseur.description:
+        nom = desc[0] 
+        nomc.append(nom) 
+    profs_lignes = curseur.fetchall()  
+
+    
+    profs = []
+    for ligne in profs_lignes:
+        prof = {}
+        for i in range(len(nomc)):
+            prof[nomc[i]] = ligne[i]
+        profs.append(prof)
+
+ 
+    pres = []
+    for prof in profs:
+        garder = True
+        for question, valeur in session["rep"].items():
+            if prof[question] != valeur:
+                garder = False  
+                break
+        if garder:
+            pres.append(prof)
+
+    
+    if len(pres) == 1:
+        nom = pres[0]["name"]
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
+
+    
+    
+    bq = None
+    if session["rep"] =={}:
+    
+        if qres:
+            questionc = random.choice(qres)
+            qtype = questionc[0]
+            question_text = questionc[1]
+            bq = (qtype, question_text)
+    
+    else:
+        brat = 0
+
+        for qtype, texte, _ in qres:
+            c0 = 0
+            c1 = 0
+            for prof in pres:
+                if prof[qtype] == "0":
+                    c0 += 1
+                elif prof[qtype] == "1":
+                    c1 += 1
 
             if c0 > 0 and c1 > 0:
-                ratio = min(c0, c1) / max(c0, c1)
-                if ratio > max_ratio:
-                    max_ratio = ratio
-                    best_question = question
+                score = min(c0, c1) / max(c0, c1)
+                if score > brat:
+                    brat = score
+                    bq = (qtype, texte)
 
-        # Si une question a été trouvée, elle est envoyée, sinon, le jeu est terminé
-        if best_question:
-            session['current_question_id'] = best_question['id']
-            return render_template("jeu.html.mako", question=best_question['q'], current_question_id=best_question['id'], is_logged_in=is_logged_in, pseudo=session.get("pseudo"))
-        else:
-            # Si aucune question n'est disponible, cela signifie que nous avons deviné un professeur
-            return render_template("jeu.html.mako", question="Je pense avoir trouvé un professeur. Qui est-ce ?", is_logged_in=is_logged_in, pseudo=session.get("pseudo"))
 
-    # Si on accède à la page sans avoir répondu, on commence une nouvelle partie
-    cursor = db.execute("SELECT id, type, q FROM question")
-    questions = cursor.fetchall()
+    if bq:
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
+    
+    
+    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
 
-    # Choisir la meilleure question de départ en fonction de la base de professeurs
-    best_question = None
-    max_ratio = 0
-    for question in questions:
-        q_type = question['type']
-        text = question['q']
-        
-        cursor = db.execute(f"SELECT {q_type} FROM teachers WHERE id IN ({', '.join(map(str, session['filtered_teachers']))})")
-        responses = cursor.fetchall()
-
-        c0 = sum(1 for response in responses if response[0] == 0)
-        c1 = sum(1 for response in responses if response[0] == 1)
-
-        if c0 > 0 and c1 > 0:
-            ratio = min(c0, c1) / max(c0, c1)
-            if ratio > max_ratio:
-                max_ratio = ratio
-                best_question = question
-
-    # Si une question est trouvée, on la pose, sinon le jeu est terminé
-    if best_question:
-        session['current_question_id'] = best_question['id']
-        return render_template("jeu.html.mako", question=best_question['q'], current_question_id=best_question['id'], is_logged_in=is_logged_in, pseudo=session.get("pseudo"))
-    else:
-        return render_template("jeu.html.mako", question="Je pense avoir trouvé un professeur. Qui est-ce ?", is_logged_in=is_logged_in, pseudo=session.get("pseudo"))
 
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
@@ -289,7 +331,7 @@ def profil(pseudo):
         
         finally:
             db.rollback()
-    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error))
+    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
 
 
 

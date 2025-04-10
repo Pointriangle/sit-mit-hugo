@@ -8,22 +8,18 @@
 </head>
 <body>
     <header>
-        
-
         <div class="logo">
             <img id="logoa" src="${url_for('static', filename='LOGO.png')}" alt="Logo">
         </div>
         <div class="bandeau">
             % if is_admin: 
-                <a class="btn" href="${url_for('ajoutprof')}">
-                    Ajouter un professeur
-                </a>
+                <a class="btn" href="${url_for('ajoutprof')}">Ajouter un professeur</a>
             % endif 
             <a class="btn" href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn" href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             % if is_logged_in: 
                 <a class="btn" href="${url_for('logout')}">Log out</a><br><br>
-                <a class="btn" href="${url_for('profil',pseudo = session.get("pseudo"))}">Profil</a>
+                <a class="btn" href="${url_for('profil', pseudo=session.get("pseudo"))}">Profil</a>
             % endif
         </div>
     </header>
@@ -31,16 +27,26 @@
     <main>
         <h1 class="h1-barre">Bienvenue ${pseudo} dans AkiPlanta</h1>
         <p id="question">Pense à un personnage, je vais essayer de le deviner.</p>
-        <p id="question">${question}</p>
-        
-        <div class="buttons">
-            <a class="btn">Oui</a>
-            <a class="btn">Non</a>
-        </div>
 
-        <div class="buttons">
-            <button class="btn btn-restart">Recommencer</button>
-        </div>
+        % if question:
+            <form method="post">
+                <input type="hidden" name="question_type" value="${question_type}">
+                <p id="question">${question}</p>
+                <div class="buttons">
+                    <button class="btn" type="submit" name="reponse" value="oui">Oui</button>
+                    <button class="btn" type="submit" name="reponse" value="non">Non</button>
+                </div>
+            </form>
+        % elif final_prof:
+            <p id="question">Je pense que tu penses à <strong>${final_prof}</strong> !</p>
+        % else:
+            <p id="question">Je ne peux pas deviner... Il me manque des infos.</p>
+        % endif
+
+        
+        <form method="post">
+            <button class="btn" type="submit" name="restart" value="true">Restart</button>
+        </form>
     </main>
 
     <footer>
