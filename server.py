@@ -4,7 +4,7 @@ Server Web d'exemple écrit en Python avec Flask.
 """
 import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-
+import random
 from flask import abort,request, redirect, url_for
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
@@ -112,50 +112,137 @@ def login():
         finally:
             db.rollback()
 
-@app.route("/jeu")
+
+@app.route("/jeu", methods=["GET", "POST"])
 def jeu():
-    if "pseudo" not in session:
-        return redirect(url_for("login"), code=303)
     
-    is_admin = session.get("admin", False)
-    is_logged_in = "pseudo" in session    
+    if "pseudo" not in session:
+        return redirect(url_for("login"))
 
+    
     db = get_db()
-    cursor = db.execute("SELECT type, q FROM question")
-    questions = cursor.fetchall()
+    pseudo = session["pseudo"]
+    is_admin = session.get("admin", False)  
+    is_logged_in = True  
 
+    
+    if "rep" not in session:
+        session["rep"] = {}
+
+    
+    if request.method == "POST":
+        
+        if request.form.get("restart"):
+            session["rep"] = {}  
+            return redirect(url_for('jeu'))  
+
+        
+        question = request.form["question_type"]
+        repu = request.form["reponse"]
+
+        
+        curseur = db.execute("SELECT oui FROM question WHERE type = ?", (question,))
+        ligne = curseur.fetchone()
+
+        
+        if ligne:
+            
+            vatt = ligne[0]
+
+            
+            if repu == "oui":
+                vg = str(vatt)
+            else:
+                
+                if vatt == 1:
+                    vg = "0"
+                else:
+                    vg = "1"
+
+            
+            session["rep"][question] = vg
+            session.modified = True  
+
+ 
+    curseur = db.execute("SELECT type, q, oui FROM question")
+    qall = curseur.fetchall()
+    qres = []  
+
+  
+    for q in qall:
+        
+        if q[0] not in session["rep"]:
+            qres.append(q) 
+
+    
+    curseur = db.execute("SELECT * FROM teachers")
+    nomc = [] 
+
+    
+    for desc in curseur.description:
+        nom = desc[0] 
+        nomc.append(nom) 
+    profs_lignes = curseur.fetchall()  
+
+    
+    profs = []
+    for ligne in profs_lignes:
+        prof = {}
+        for i in range(len(nomc)):
+            prof[nomc[i]] = ligne[i]
+        profs.append(prof)
+
+ 
+    pres = []
+    for prof in profs:
+        garder = True
+        for question, valeur in session["rep"].items():
+            if prof[question] != valeur:
+                garder = False  
+                break
+        if garder:
+            pres.append(prof)
+
+    
+    if len(pres) == 1:
+        nom = pres[0]["name"]
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
+
+    
+    
     bq = None
-    brat = 0
+    if session["rep"] =={}:
+    
+        if qres:
+            questionc = random.choice(qres)
+            qtype = questionc[0]
+            question_text = questionc[1]
+            bq = (qtype, question_text)
+    
+    else:
+        brat = 0
 
-    for question in questions:
-        q_type = question[0]
-        text = question[1]
-
-        try:
-            cursor = db.execute(f"SELECT {q_type} FROM teachers")
-            rep = cursor.fetchall()
-            responses = [row[0] for row in rep]
-
+        for qtype, texte, _ in qres:
             c0 = 0
             c1 = 0
-            
-            for response in responses:
-                if response == "0":
+            for prof in pres:
+                if prof[qtype] == "0":
                     c0 += 1
-                elif response == "1":
+                elif prof[qtype] == "1":
                     c1 += 1
 
             if c0 > 0 and c1 > 0:
-                b = min(c0, c1) / max(c0, c1)
-                if b > brat:
-                    brat = b
-                    bq = text 
+                score = min(c0, c1) / max(c0, c1)
+                if score > brat:
+                    brat = score
+                    bq = (qtype, texte)
 
-        except Exception as e:
-            return render_template("jeu.html.mako", error=str(e))
 
-    return render_template("jeu.html.mako", is_admin=is_admin, is_logged_in=is_logged_in, pseudo=session.get("pseudo"), question=bq)
-
+    if bq:
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
+    
+    
+    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
 
 
 @app.route("/leaderboardeleve")
@@ -211,18 +298,26 @@ def logout():
 
 @app.route("/profil/<pseudo>",methods=["GET", "POST"])
 def profil(pseudo):
+    error=None
     if request.method=='GET':
         if "pseudo" not in session:
             return redirect(url_for("login"), code=303)
         if session.get("pseudo") != pseudo:
-            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
+            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303,error=error)
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
         user = cursor.fetchone() 
-        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"])
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error)
     elif request.method == "POST": 
         db = get_db()
+        cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+        user = cursor.fetchone()
+        password = user["password"]
+        hash = hashlib.sha256(request.form["mdp"].encode())
+        hpassword = hash.hexdigest()
         try:
+            if hpassword!=password:
+                raise ValidationError("Mot de passe incorrect")
             if request.form["nmdp"] != request.form["confirm"]:
                 raise ValidationError("Les mots de passe ne correspondent pas.")
             hash = hashlib.sha256(request.form["nmdp"].encode())
@@ -232,55 +327,16 @@ def profil(pseudo):
                 (password,session.get("pseudo"),))
             db.commit()
         except ValidationError as e:
-            return render_template("signin.html.mako", error=str(e))
+            return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e))
         
         finally:
             db.rollback()
-    return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303)
+    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
 
 
 
 
     
-
-
-
-app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
