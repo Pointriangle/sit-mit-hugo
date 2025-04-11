@@ -168,7 +168,7 @@ def jeu():
             session.modified = True  
 
  
-    curseur =db.execute("SELECT type, q, oui FROM question")
+    curseur =db.execute("SELECT type, q FROM question")
     qall= curseur.fetchall()
     qres =[]  
 
@@ -226,7 +226,7 @@ def jeu():
     else:
         brat = 0
 
-        for qtype, texte, _ in qres:
+        for qtype, texte  in qres:
             c0 = 0
             c1 = 0
             for prof in pres:
@@ -247,8 +247,8 @@ def jeu():
     
     elif bq is None and  len(pres) != 1  :
         x=len(pres)
-        x=randint(0,x)
-        nom = pres[x-1]["name"]
+        x=randint(0,x-1)
+        nom = pres[x]["name"]
         
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
 

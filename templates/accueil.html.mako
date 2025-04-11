@@ -30,7 +30,7 @@
             <a class="btn" href="${url_for('signin')}"> Créer un compte </a>  
         </div>
         <div class="buttons">
-            <a href='https://www.youtube.com/watch?v=1oOOEBd0UnE' class="btn" id="boutonFuyant">Jouer sans se connecter</a>
+            <a  class="btn" id="boutonFuyant">Jouer sans se connecter</a>
         </div>
         
         <script>
