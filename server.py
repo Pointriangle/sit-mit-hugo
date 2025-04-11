@@ -69,9 +69,13 @@ def ajoutprof():
                 taille=0
             else:
                 taille=1
+            if request.form['lunettes']=="oui":
+                lunettes=0
+            else:
+                lunettes=1
             db.execute(
-                "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,branche,created_at) VALUES (?, ?, ?,?,?,?,?)",
-                (request.form['name'], genre,couleur_yeux,couleur_cheveux,taille,request.form["branche"],datetime.now())
+                "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,branche,created_at,lunettes) VALUES (?, ?, ?,?,?,?,?,?)",
+                (request.form['name'], genre,couleur_yeux,couleur_cheveux,taille,request.form["branche"],datetime.now(),lunettes)
             )
             db.commit()
             is_logged_in = "pseudo" in session  
@@ -127,13 +131,13 @@ def jeu():
 
     
     if "rep" not in session:
-        session["rep"] = {}
+        session["rep"] ={}
 
     
-    if request.method == "POST":
+    if request.method =="POST":
         
         if request.form.get("restart"):
-            session["rep"] = {}  
+            session["rep"]= {}  
             return redirect(url_for('jeu'))  
 
         
@@ -150,23 +154,23 @@ def jeu():
             vatt = ligne[0]
 
             
-            if repu == "oui":
+            if repu =="oui":
                 vg = str(vatt)
             else:
                 
-                if vatt == 1:
-                    vg = "0"
+                if vatt== 1:
+                    vg ="0"
                 else:
-                    vg = "1"
+                    vg ="1"
 
             
             session["rep"][question] = vg
             session.modified = True  
 
  
-    curseur = db.execute("SELECT type, q, oui FROM question")
-    qall = curseur.fetchall()
-    qres = []  
+    curseur =db.execute("SELECT type, q, oui FROM question")
+    qall= curseur.fetchall()
+    qres =[]  
 
   
     for q in qall:
@@ -180,32 +184,32 @@ def jeu():
 
     
     for desc in curseur.description:
-        nom = desc[0] 
+        nom= desc[0] 
         nomc.append(nom) 
-    profs_lignes = curseur.fetchall()  
+    profs_lignes =curseur.fetchall()  
 
     
     profs = []
     for ligne in profs_lignes:
-        prof = {}
+        prof ={}
         for i in range(len(nomc)):
-            prof[nomc[i]] = ligne[i]
+            prof[nomc[i]]=ligne[i]
         profs.append(prof)
 
  
-    pres = []
+    pres=[]
     for prof in profs:
-        garder = True
+        garder=True
         for question, valeur in session["rep"].items():
-            if prof[question] != valeur:
+            if prof[question] !=valeur:
                 garder = False  
                 break
         if garder:
             pres.append(prof)
 
     
-    if len(pres) == 1:
-        nom = pres[0]["name"]
+    if len(pres)==1:
+        nom=pres[0]["name"]
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
 
     
@@ -241,7 +245,15 @@ def jeu():
     if bq:
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
     
-    
+    elif bq is None and  len(pres) != 1  :
+        x=len(pres)
+        x=randint(0,x)
+        nom = pres[x-1]["name"]
+        
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
+
+
+
     return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
 
 

@@ -52,6 +52,13 @@
                 <option>Homme</option>
                 <option>Femme</option>
             </select>
+
+            <label for="lunettes">lunettes</label>
+            <select type="text" id="lunettes" name="lunettes" required>
+                <option>oui</option>
+                <option>non</option>
+            </select>
+            
             <div class="buttons-ajout">
                 <input  type="submit" class="btn"value="Ajouter professeur"> 
             </div>
