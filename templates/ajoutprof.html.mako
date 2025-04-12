@@ -58,17 +58,16 @@
                 <option>oui</option>
                 <option>non</option>
             </select>
-            
-            <div class="buttons-ajout">
-                <input  type="submit" class="btn"value="Ajouter professeur"> 
-            </div>
-        </form>
-        %if error is not None:
+            %if error is not None:
         <p style="color:red">${error}</p>
         %endif
         %if validation:
         <p style="color:green">Professeur enregistré</p>
         %endif
+            <div class="buttons-ajout">
+                <input  type="submit" class="btn"value="Ajouter professeur"> 
+            </div>
+        </form>
     </main>
 
     <footer>

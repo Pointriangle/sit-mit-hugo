@@ -44,14 +44,13 @@
                     <p>Confirmer le mot de passe</p>
                     <input class="field" type="password" id="confirm" name="confirm" required> 
                 </label>
-                
+                 %if error is not None:
+        <p style="color:red"> ${error} </p> 
+        %endif 
                 <div class="buttons">
                     <input class="btn" type="submit" value="Valider" />
                 </div>
             </form> 
-        %if error is not None:
-        <p style="color:red"> ${error} </p> 
-        %endif 
          <div class="buttons">
             <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
             <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
