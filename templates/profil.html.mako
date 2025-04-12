@@ -44,9 +44,12 @@
                     <p>Confirmer le mot de passe</p>
                     <input class="field" type="password" id="confirm" name="confirm" required> 
                 </label>
-                 %if error is not None:
+        %if error is not None:
         <p style="color:red"> ${error} </p> 
         %endif 
+        %if validation:
+        <p style="color:green"> Mot de passe modifié <p>
+        %endif
                 <div class="buttons">
                     <input class="btn" type="submit" value="Valider" />
                 </div>

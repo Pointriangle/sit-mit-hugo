@@ -315,11 +315,11 @@ def profil(pseudo):
         if "pseudo" not in session:
             return redirect(url_for("login"), code=303)
         if session.get("pseudo") != pseudo:
-            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303,error=error)
+            return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303,error=error,validation=False)
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
         user = cursor.fetchone() 
-        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error)
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False)
     elif request.method == "POST": 
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
@@ -339,14 +339,9 @@ def profil(pseudo):
                 (password,session.get("pseudo"),))
             db.commit()
         except ValidationError as e:
-            return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e))
+            return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e),validation=False)
         
-        finally:
-            db.rollback()
-    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
-
-
-
+    return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error,validation=True) 
 
     
 
