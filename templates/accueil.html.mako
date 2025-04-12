@@ -27,7 +27,7 @@
         <p id="questions">Le concept du jeu est de faire deviner à la machine, en répondant à des questions fermées, l'identité d'un professeur du Lycée-Collège de la Planta</p> 
         <div class="buttons">
             <a class="btn" href="${url_for('login')}"> Se connecter </a>
-            <a class="btn" href="${url_for('signin')}"> Créer un compte </a>  
+            <a class="btn" href="${url_for('signup')}"> Créer un compte </a>  
         </div>
         <div class="buttons">
             <a  class="btn" id="boutonFuyant">Jouer sans se connecter</a>

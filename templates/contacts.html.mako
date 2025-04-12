@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>contacts</title>
+    <title>Contacts</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>

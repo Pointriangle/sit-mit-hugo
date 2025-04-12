@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Ajout de Professeurs</title>
+    <title>Ajout de professeurs</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
     </header>
     
     <main>
-        <h1 class="h1-barre">Ajout de Professeurs à deviner</h1>
+        <h1 class="h1-barre">Ajout de professeurs à deviner</h1>
         <form id="ajoutProfesseurForm" method="POST">
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" required>

@@ -289,8 +289,8 @@ def leaderboardpro():
     is_logged_in = "pseudo" in session  
     return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in)
 
-@app.route("/signin", methods=["GET", "POST"])
-def signin():
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
     if request.method == "GET":
         return render_template('signin.html.mako', error=None)  
     
