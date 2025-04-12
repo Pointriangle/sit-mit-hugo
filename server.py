@@ -166,8 +166,7 @@ def jeu():
             
             session["rep"][question] = vg
             session.modified = True  
-
- 
+       
     curseur =db.execute("SELECT type, q FROM question")
     qall= curseur.fetchall()
     qres =[]  
@@ -178,7 +177,6 @@ def jeu():
         if q[0] not in session["rep"]:
             qres.append(q) 
 
-    
     curseur = db.execute("SELECT * FROM teachers")
     nomc = [] 
 
@@ -210,6 +208,29 @@ def jeu():
     
     if len(pres)==1:
         nom=pres[0]["name"]
+        
+        cursor=db.execute(
+                "SELECT points FROM users WHERE pseudo=?",
+                (session.get("pseudo"),))
+        user = cursor.fetchone()
+        points= int(user['points'])
+        points+= 1
+        db.execute(
+                "UPDATE users SET points=? WHERE pseudo=?",
+                (points,session.get("pseudo"),))
+        
+        curseur=db.execute(
+                "SELECT points FROM teachers WHERE name=?",
+                (nom,))
+        teacher = curseur.fetchone()
+        points= int(teacher['points'])
+        points+= 1
+        db.execute(
+                "UPDATE teachers SET points=? WHERE name=?",
+                (points,nom,))
+        
+        db.commit()
+        session["rep"]= {} 
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
 
     
@@ -247,6 +268,7 @@ def jeu():
         x=len(pres)
         x=randint(0,x-1)
         nom = pres[x]["name"]
+       
         cursor=db.execute(
                 "SELECT points FROM users WHERE pseudo=?",
                 (session.get("pseudo"),))
@@ -257,6 +279,7 @@ def jeu():
                 "UPDATE users SET points=? WHERE pseudo=?",
                 (points,session.get("pseudo"),))
         db.commit()
+            
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
 
 
@@ -270,11 +293,13 @@ def jeu():
             "UPDATE users SET points=? WHERE pseudo=?",
             (points,session.get("pseudo"),))
     db.commit()
+    session["rep"]= {} 
     return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
 
 
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
+    session["rep"]= {} 
     db = get_db()
     cursor = db.execute("SELECT pseudo, points FROM users ORDER BY points DESC limit 3")
     users = cursor.fetchall() 
@@ -283,6 +308,7 @@ def leaderboardeleve():
 
 @app.route("/leaderboardpro")
 def leaderboardpro():
+    session["rep"]= {} 
     db = get_db()
     cursor = db.execute("SELECT name, points FROM teachers ORDER BY points DESC limit 3")
     teachers = cursor.fetchall() 
@@ -326,6 +352,7 @@ def logout():
 
 @app.route("/profil/<pseudo>",methods=["GET", "POST"])
 def profil(pseudo):
+    session["rep"]= {} 
     error=None
     if request.method=='GET':
         if "pseudo" not in session:
