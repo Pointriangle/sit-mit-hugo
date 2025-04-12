@@ -240,8 +240,6 @@ def jeu():
                 if score > brat:
                     brat = score
                     bq = (qtype, texte)
-
-
     if bq:
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
     
@@ -249,11 +247,29 @@ def jeu():
         x=len(pres)
         x=randint(0,x-1)
         nom = pres[x]["name"]
-        
+        cursor=db.execute(
+                "SELECT points FROM users WHERE pseudo=?",
+                (session.get("pseudo"),))
+        user = cursor.fetchone()
+        points= int(user['points'])
+        points+= 1
+        db.execute(
+                "UPDATE users SET points=? WHERE pseudo=?",
+                (points,session.get("pseudo"),))
+        db.commit()
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
 
 
-
+    cursor=db.execute(
+            "SELECT points FROM users WHERE pseudo=?",
+            (session.get("pseudo"),))
+    user = cursor.fetchone()
+    points= int(user['points'])
+    points+= 1
+    db.execute(
+            "UPDATE users SET points=? WHERE pseudo=?",
+            (points,session.get("pseudo"),))
+    db.commit()
     return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
 
 
