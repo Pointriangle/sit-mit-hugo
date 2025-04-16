@@ -18,6 +18,10 @@
             % if is_logged_in: 
                 <a class="btn" href="${url_for('logout')}">Log out</a>
             % endif
+            <div class="buttons">
+            <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
+            <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
+        </div>  
         </div>
     </header>
 
@@ -54,10 +58,6 @@
                     <input class="btn" type="submit" value="Valider" />
                 </div>
             </form> 
-         <div class="buttons">
-            <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
-            <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
-        </div>  
     </main>
 
 
