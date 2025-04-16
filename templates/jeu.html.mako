@@ -45,7 +45,15 @@
 
         
         <form method="post">
-            <button class="btn" type="submit" name="restart" value="true">Restart</button>
+            
+            %if correct==True:
+                <div class="buttons">
+                    <button class="btn" type="submit" name="ok" value="true">Juste</button>
+                    <button class="btn" type="submit" name="ok" value="false">Faux</button>
+                </div>
+            %else:
+                <button class="btn" type="submit" name="restart" value="true">Restart</button>
+            % endif
         </form>
     </main>
 

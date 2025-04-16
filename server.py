@@ -119,7 +119,8 @@ def login():
 
 @app.route("/jeu", methods=["GET", "POST"])
 def jeu():
-    
+    global pj
+    global nom
     if "pseudo" not in session:
         return redirect(url_for("login"))
 
@@ -135,37 +136,81 @@ def jeu():
 
     
     if request.method =="POST":
-        
+
         if request.form.get("restart"):
             session["rep"]= {}  
             return redirect(url_for('jeu'))  
-
         
-        question = request.form["question_type"]
-        repu = request.form["reponse"]
-
+        if request.form.get("ok"):
+            if request.form.get("ok")=="true":
+                nom=session["fp"]
+                        
         
-        curseur = db.execute("SELECT oui FROM question WHERE type = ?", (question,))
-        ligne = curseur.fetchone()
+                cursor=db.execute(
+                        "SELECT points FROM users WHERE pseudo=?",
+                        (session.get("pseudo"),))
+                user = cursor.fetchone()
+                points= int(user['points'])
+                points+= 1
+                db.execute(
+                        "UPDATE users SET points=? WHERE pseudo=?",
+                        (points,session.get("pseudo"),))
 
-        
-        if ligne:
-            
-            vatt = ligne[0]
+                curseur=db.execute(
+                        "SELECT points FROM teachers WHERE name=?",
+                        (nom,))
+                teacher = curseur.fetchone()
+                points= int(teacher['points'])
+                points+= 1
+                db.execute(
+                        "UPDATE teachers SET points=? WHERE name=?",
+                        (points,nom,))
 
-            
-            if repu =="oui":
-                vg = str(vatt)
+                db.commit()
+                session["rep"]= {} 
+                session["fp"]={}
+
+                return redirect(url_for('jeu')) 
             else:
                 
-                if vatt== 1:
-                    vg ="0"
-                else:
-                    vg ="1"
+                if len(pj)>0:
+                    session["fp"]={}
+                    x=len(pj)
+                    x=randint(0,x-1)
+                    nom = pj[x]["name"]
+                    del pj[x]
+                    
+                    j=True  
+                    session["fp"]=nom
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j)
+                else :
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
+        if request.form.get("question_type") and request.form.get("reponse"):
+            question = request.form["question_type"]
+            repu = request.form["reponse"]
 
-            
-            session["rep"][question] = vg
-            session.modified = True  
+
+            curseur = db.execute("SELECT oui FROM question WHERE type = ?", (question,))
+            ligne = curseur.fetchone()
+
+
+            if ligne:
+
+                vatt = ligne[0]
+
+
+                if repu =="oui":
+                    vg = str(vatt)
+                else:
+
+                    if vatt== 1:
+                        vg ="0"
+                    else:
+                        vg ="1"
+
+
+                session["rep"][question] = vg
+                session.modified = True  
        
     curseur =db.execute("SELECT type, q FROM question")
     qall= curseur.fetchall()
@@ -196,6 +241,7 @@ def jeu():
 
  
     pres=[]
+    
     for prof in profs:
         garder=True
         for question, valeur in session["rep"].items():
@@ -264,23 +310,20 @@ def jeu():
     if bq:
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
     
-    elif bq is None and  len(pres) != 1  :
+    elif bq is None and  len(pres) != 1 :
+        session["fp"]={}
         x=len(pres)
         x=randint(0,x-1)
         nom = pres[x]["name"]
-       
-        cursor=db.execute(
-                "SELECT points FROM users WHERE pseudo=?",
-                (session.get("pseudo"),))
-        user = cursor.fetchone()
-        points= int(user['points'])
-        points+= 1
-        db.execute(
-                "UPDATE users SET points=? WHERE pseudo=?",
-                (points,session.get("pseudo"),))
-        db.commit()
-            
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
+        
+        del pres[x]
+        
+        pj=pres
+        pres=[]
+        j=True    
+        session["rep"]= {}
+        session["fp"]=nom
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j)
 
 
     cursor=db.execute(
@@ -293,7 +336,7 @@ def jeu():
             "UPDATE users SET points=? WHERE pseudo=?",
             (points,session.get("pseudo"),))
     db.commit()
-    session["rep"]= {} 
+    session["rep"]= {}
     return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
 
 
