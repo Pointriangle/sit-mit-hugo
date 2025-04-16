@@ -362,7 +362,10 @@ def profil(pseudo):
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
         user = cursor.fetchone() 
-        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False)
+        cursor=db.execute("SELECT pseudo from users WHERE points <= ?", (user["points"],))
+        count= db.execute("SELECT COUNT(*) FROM users")
+        percentile= (len(cursor.fetchall())/count.fetchone()[0])*100
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False, percentile=percentile)
     elif request.method == "POST": 
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))

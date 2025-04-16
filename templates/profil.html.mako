@@ -24,7 +24,7 @@
     <main>
         <h1>Profil de ${pseudo} </h1>
         <p id="questions">Pseudo: ${pseudo} </p> 
-        <p id="questions">Nombre de parties: ${points} </p> 
+        <p id="questions">Nombre de parties: ${points} (plus que ${percentile}% de joueurs) </p>
         <p id="questions">Actif depuis le: ${created_at} </p>  
         <form method="POST">
                 <label>
