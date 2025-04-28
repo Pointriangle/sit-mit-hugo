@@ -83,6 +83,7 @@ def ajoutprof():
             db.rollback()
 
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
