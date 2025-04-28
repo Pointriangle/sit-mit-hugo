@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Ajout de Professeurs</title>
+    <title>Ajout de professeurs</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
     </header>
     
     <main>
-        <h1 class="h1-barre">Ajout de Professeurs à deviner</h1>
+        <h1 class="h1-barre">Ajout de professeurs à deviner</h1>
         <form id="ajoutProfesseurForm" method="POST">
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" required>
@@ -34,7 +34,7 @@
             <label for="couleur_cheveux">Couleur des Cheveux</label>
             <select id="couleur_cheveux" name="couleur_cheveux" required>
                 <option>Sombres</option>
-                <option>Clais</option>
+                <option>Clairs</option>
             </select>
             <label for="couleur_yeux">Couleur des Yeux</label>
             <select type="text" id="couleur_yeux" name="couleur_yeux"required>
@@ -52,16 +52,22 @@
                 <option>Homme</option>
                 <option>Femme</option>
             </select>
-            <div class="buttons-ajout">
-                <input  type="submit" class="btn"value="Ajouter professeur"> 
-            </div>
-        </form>
-        %if error is not None:
+
+            <label for="lunettes">lunettes</label>
+            <select type="text" id="lunettes" name="lunettes" required>
+                <option>oui</option>
+                <option>non</option>
+            </select>
+            %if error is not None:
         <p style="color:red">${error}</p>
         %endif
         %if validation:
         <p style="color:green">Professeur enregistré</p>
         %endif
+            <div class="buttons-ajout">
+                <input  type="submit" class="btn"value="Ajouter professeur"> 
+            </div>
+        </form>
     </main>
 
     <footer>

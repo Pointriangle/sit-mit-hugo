@@ -18,7 +18,7 @@ from traceback import print_exception
 
 ME_DIR = Path(__file__).parent
 DB_FILE = ME_DIR / "data.db"
-INIT_SCRIPT = ME_DIR / "db"".sql"
+INIT_SCRIPT = ME_DIR / "db.sql"
 DATA_SCRIPT = ME_DIR / "users.sql"
 
 

@@ -17,6 +17,7 @@
             <a class="btn " href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             % if is_logged_in: 
                 <a class="btn" href="${url_for('logout')}">Log out</a>
+                <a class="btn" href="${url_for('profil',pseudo = session.get("pseudo"))}">Profil</a>
             % endif
         </div>
     </header>
@@ -26,12 +27,12 @@
         <p id="questions">Le concept du jeu est de faire deviner à la machine, en répondant à des questions fermées, l'identité d'un professeur du Lycée-Collège de la Planta</p> 
         <div class="buttons">
             <a class="btn" href="${url_for('login')}"> Se connecter </a>
-            <a class="btn" href="${url_for('signin')}"> Créer un compte </a>  
+            <a class="btn" href="${url_for('signup')}"> Créer un compte </a>  
         </div>
         <div class="buttons">
-            <a href='https://www.youtube.com/watch?v=1oOOEBd0UnE' class="btn" id="boutonFuyant">Jouer sans se connecter</a>
+            <a  class="btn" id="boutonFuyant">Jouer sans se connecter</a>
         </div>
-        <a id="btn-admin" href="${url_for('ajoutprof')}">.</a>
+        
         <script>
             const bouton = document.getElementById('boutonFuyant');
             
