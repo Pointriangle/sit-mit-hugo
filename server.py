@@ -289,7 +289,7 @@ def profil(pseudo):
         
         finally:
             db.rollback()
-    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error))
+    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
 
 
 
