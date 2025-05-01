@@ -12,16 +12,7 @@ VALUES ('genre','Est ce un homme?',0),
 
 
 INSERT INTO teachers (name, genre, couleur_yeux, couleur_cheveux, taille, branche, points, created_at, lunettes)
-VALUES('Mr. Posse', 0, 0, 1, 1, 'Français, Latin', 0, '2025-04-03 17:55:55.230838', 1),
-('Mme. Gillioz', 1, 0, 1, 0, 'Anglais', 0, '2025-04-03 17:56:28.117501', 0),
-('Mr. Mivelaz', 0, 1, 1, 1, 'Mathématiques', 0, '2025-04-03 17:56:43.151456', 1),
-('Mr. Bridel', 0, 1, 1, 1, 'Mathématiques', 0, '2025-04-03 17:57:15.821326', 0),
-('Mr. Troillet', 0, 1, 1, 0, 'Sport', 0, '2025-04-03 17:57:42.984857', 0),
-('Mr. Després', 0, 1, 1, 1, 'Informatique', 0, '2025-04-03 17:58:04.309376', 1),
-('Mme. Rittiner', 1, 1, 1, 1, 'Allemand', 0, '2025-04-03 17:58:27.793754', 1),
-('Mme Crettenand-Sierro', 1, 1, 1, 0, 'Rectorat', 0, '2025-04-03 17:59:21.489065', 1),
-('Mr. Gaillard', 0, 1, 1, 1, 'Histoire', 0, '2025-04-03 18:00:22.431923', 0),
-('Mr. Emery', 0, 1, 1, 1, 'Musique', 0, '2025-04-03 18:00:54.423307', 0),
+VALUES('Mr. Emery', 0, 1, 1, 1, 'Musique', 0, '2025-04-03 18:00:54.423307', 0),
 ('Mme. Dupont', 1, 0, 0, 1, 'Biologie', 0, '2025-04-10 09:10:00', 1),
 ('Mr. Lambert', 0, 0, 0, 0, 'Chimie', 0, '2025-04-10 09:10:01', 0),
 ('Mme. Schneider', 1, 1, 0, 1, 'Physique', 0, '2025-04-10 09:10:02', 1),
