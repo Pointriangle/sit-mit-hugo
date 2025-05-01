@@ -29,16 +29,15 @@
                     <input class="field" type="password" id="password" name="password" required> 
                 </label>
                 <br><br>
-                
+                 % if error :
+            <p style="color: red">ERREUR: ${error}</p>
+                 % endif
                 <div class="buttons">
                     <input class="btn" type= "submit" value="Se connecter" />
-                    <a class="btn" href="${url_for('signin')}">Pas encore de compte?</a>
+                    <a class="btn" href="${url_for('signup')}">Pas encore de compte?</a>
                 </div>
             </form>
         </div>
-        % if error :
-            <p style="color: red">ERREUR: ${error}</p>
-        % endif
     </main>
     
 

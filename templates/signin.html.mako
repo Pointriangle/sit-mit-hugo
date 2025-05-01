@@ -34,17 +34,15 @@
                     <p>Confirmer le mot de passe</p>
                     <input class="field" type="password" id="confirm" name="confirm" required> 
                 </label>
-                
+                 % if error is not None:
+            <p style="color: red">ERREUR: ${error}</p>
+                % endif
                 <div class="buttons">
                     <input class="btn" type="submit" value="S'inscrire" />
                     <a class="btn" href="${url_for('login')}">Déjà un compte ?</a>
                 </div>
             </form>
         </div>
-        
-        % if error is not None:
-            <p style="color: red">ERREUR: ${error}</p>
-        % endif
     </main>
 
     <footer>

@@ -18,11 +18,13 @@ CREATE TABLE teachers (
     taille TEXT NOT NULL,
     branche TEXT NOT NULL,
     points INTEGER DEFAULT 0,   
-    created_at DATETIME 
+    created_at DATETIME, 
+    lunettes TEXT NOT NULL
 );
 CREATE TABLE question (
     id INTEGER PRIMARY KEY ,
     type TEXT NOT NULL UNIQUE,
-    q TEXT NOT NULL UNIQUE
+    q TEXT NOT NULL UNIQUE,
+    oui TEXT NOT NULL
     
 );

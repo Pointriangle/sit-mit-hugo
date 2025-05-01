@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Profil</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
@@ -18,13 +18,17 @@
             % if is_logged_in: 
                 <a class="btn" href="${url_for('logout')}">Log out</a>
             % endif
+            <div class="buttons">
+            <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
+            <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
+        </div>  
         </div>
     </header>
 
     <main>
         <h1>Profil de ${pseudo} </h1>
         <p id="questions">Pseudo: ${pseudo} </p> 
-        <p id="questions">Nombre de parties: ${points} </p> 
+        <p id="questions">Nombre de parties: ${points} (plus que ${percentile}% de joueurs) </p>
         <p id="questions">Actif depuis le: ${created_at} </p>  
         <form method="POST">
                 <label>
@@ -44,18 +48,16 @@
                     <p>Confirmer le mot de passe</p>
                     <input class="field" type="password" id="confirm" name="confirm" required> 
                 </label>
-                
+        %if error is not None:
+        <p style="color:red"> ${error} </p> 
+        %endif 
+        %if validation:
+        <p style="color:green"> Mot de passe modifié <p>
+        %endif
                 <div class="buttons">
                     <input class="btn" type="submit" value="Valider" />
                 </div>
             </form> 
-        %if error is not None:
-        <p style="color:red"> ${error} </p> 
-        %endif 
-         <div class="buttons">
-            <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
-            <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
-        </div>  
     </main>
 
 
