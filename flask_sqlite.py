@@ -69,7 +69,7 @@ def close_db(exception=None):
     # l'attribut 'db' du contexte global.
     # La variable 'db' recevra la valeur None si aucune connexion n'est
     # active.
-    db = GLOBAL.pop('db', None)
+    db = GLOBAL.pop(current_app.config['SQLITE_DB_ATTR'], None)
     # Ferme la connexion à la base de données s'il y en avait une d'établie.
     if db is not None:
         db.close()
