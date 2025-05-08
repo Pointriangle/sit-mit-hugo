@@ -23,7 +23,7 @@ CREATE TABLE teachers (
 );
 CREATE TABLE question (
     id INTEGER PRIMARY KEY ,
-    type TEXT NOT NULL UNIQUE,
+    type TEXT NOT NULL ,
     q TEXT NOT NULL UNIQUE,
     oui TEXT NOT NULL
     
