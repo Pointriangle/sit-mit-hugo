@@ -11,7 +11,7 @@
         <div>
             % if is_logged_in:
                 <a href="${url_for('profil',pseudo = session.get("pseudo"))}" >
-                    <img src="${url_for('avatar', filename=avatar)}" width="160" height="160" alt= "Avatar de ${pseudo}" class="r">
+                    <img src="${url_for('avatar', filename=avatar)}" width="160" height="160"  class="r">
                 </a>
             % endif
         

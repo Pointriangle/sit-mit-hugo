@@ -356,7 +356,7 @@ def leaderboardeleve():
     cursor = db.execute("SELECT pseudo, points FROM users ORDER BY points DESC limit 3")
     users = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in)
+    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in,avatar=session["avatar"])
 
 @app.route("/leaderboardpro")
 def leaderboardpro():
@@ -365,7 +365,7 @@ def leaderboardpro():
     cursor = db.execute("SELECT name, points FROM teachers ORDER BY points DESC limit 3")
     teachers = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in)
+    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in,avatar=session["avatar"])
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
