@@ -4,11 +4,16 @@ VALUES ('c', '2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6',
 ('a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', 0, 0, datetime('now'));
 
 INSERT INTO question (type,q,oui) 
-VALUES ('genre','Est ce un homme?',0),
- ('couleur_yeux','A-t-il/elle les yeux clairs ?',0),
- ('couleur_cheveux','A-t-il/elle les cheveux clairs ?',0),
- ('lunettes','porte-il/elle des lunettes ?',1),
- ('taille','Est-il/elle grand(e) ?',1);
+VALUES 
+('genre','Est ce un homme?',1),
+('genre','Est ce une femme?',0),
+('couleur_yeux','A-t-il/elle les yeux clairs ?',0),
+('couleur_yeux','A-t-il/elle les yeux sombres ?',0),
+('couleur_cheveux','A-t-il/elle les cheveux clairs ?',0),
+('couleur_cheveux','A-t-il/elle les cheveux sombres ?',0),
+('lunettes','Porte-il/elle des lunettes ?',1),
+('taille','Est-il/elle grand(e) ?',1),
+('taille','Est-il/elle petit(e) ?',1);
 
 
 INSERT INTO teachers (name, genre, couleur_yeux, couleur_cheveux, taille, branche, points, created_at, lunettes)
