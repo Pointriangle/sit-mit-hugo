@@ -257,11 +257,11 @@
         right: 0;
         width: 7%;
         height: 7%; 
-        clip-path:ellipse(33% 50%);
+        border-radius: 50%;
         transition: transform 0.2s; 
         text-decoration: none;
     }
-    .rond:hover {
+    .r:hover {
         transform: scale(1.2); 
     }
     

@@ -35,11 +35,11 @@ def index():
 @app.route("/accueil")
 def accueil():
     is_logged_in = "pseudo" in session  
-    return render_template("accueil.html.mako",is_logged_in=is_logged_in)
+    return render_template("accueil.html.mako",is_logged_in=is_logged_in,avatar=session["avatar"])
 
 @app.route("/contacts")
 def contacts():
-    return render_template("contacts.html.mako")
+    return render_template("contacts.html.mako",avatar=session["avatar"])
 @app.route("/ajoutprof", methods=["GET", "POST"])
 def ajoutprof():
     if "pseudo" not in session:
@@ -82,7 +82,7 @@ def ajoutprof():
             return render_template("ajoutprof.html.mako", validation=True,error=None,is_logged_in=is_logged_in)
         
         except sqlite3.IntegrityError as ie:
-            return render_template("ajoutprof.html.mako", error="Ce professeur est déja enregistré.",validation=False)
+            return render_template("ajoutprof.html.mako", error="Ce professeur est déja enregistré.",validation=False,avatar=session["avatar"])
         
         finally:
             db.rollback()
@@ -184,9 +184,9 @@ def jeu():
                     
                     j=True  
                     session["fp"]=nom
-                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j)
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=session["avatar"])
                 else :
-                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=session["avatar"])
         if request.form.get("question_type") and request.form.get("reponse"):
             question = request.form["question_type"]
             repu = request.form["reponse"]
@@ -279,7 +279,7 @@ def jeu():
         
         db.commit()
         session["rep"]= {} 
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom )
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,avatar=session["avatar"] )
 
     
     
@@ -317,7 +317,7 @@ def jeu():
 
 
     if bq:
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1],avatar=session["avatar"])
     
     elif bq is None and  len(pres) != 1 :
         session["fp"]={}
@@ -332,7 +332,7 @@ def jeu():
         j=True    
         session["rep"]= {}
         session["fp"]=nom
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j)
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=session["avatar"])
 
 
     cursor=db.execute(
@@ -346,7 +346,7 @@ def jeu():
             (points,session.get("pseudo"),))
     db.commit()
     session["rep"]= {}
-    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
+    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=session["avatar"])
 
 
 @app.route("/leaderboardeleve")
