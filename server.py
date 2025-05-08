@@ -436,9 +436,14 @@ def profil(pseudo):
                 (password,session.get("pseudo"),))
             db.commit()
         except ValidationError as e:
-            return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e),validation=False)
+            return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e))
         
-    return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error,validation=True) 
+        finally:
+            db.rollback()
+    return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
+
+
+
 
     
 
