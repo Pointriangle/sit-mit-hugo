@@ -488,8 +488,9 @@ def profil(pseudo):
                     raise ValidationError("Pas de fichier avatar sélectionné.")
                 filename = secure_filename(user['pseudo'] + "_" + avatar.filename)
                 avatar.save(os.path.join("avatar", filename))
-                db.execute("UPDATE users SET avatar=? WHERE id=?", (filename, user['pseudo']))
+                db.execute("UPDATE users SET avatar=? WHERE pseudo=?", (filename,session['pseudo']))
                 db.commit()
+                
                 session["avatar"]=filename
             except ValidationError as e:
                 error = str(e)
