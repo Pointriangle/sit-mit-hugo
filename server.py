@@ -102,13 +102,14 @@ def login():
 
         db = get_db()
         try:
-            cursor = db.execute("SELECT pseudo, password, id, admin FROM users WHERE pseudo = ?", (pseudo,))
+            cursor = db.execute("SELECT pseudo, password, id, admin,avatar FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
             hash = hashlib.sha256(request.form["password"].encode())
             hpassword = hash.hexdigest()
             if user and hpassword == user["password"]:
                 session["pseudo"] = pseudo
                 session["admin"] = bool(user["admin"])
+                session["avatar"]=user["avatar"]
                 return redirect(url_for("jeu"), code=303)
             else:
                 return render_template("login.html.mako", error="Identifiants incorrects.")
@@ -278,7 +279,7 @@ def jeu():
         
         db.commit()
         session["rep"]= {} 
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom )
 
     
     
@@ -416,7 +417,7 @@ def profil(pseudo):
         cursor=db.execute("SELECT pseudo from users WHERE points < ?", (user["points"],))
         count= db.execute("SELECT COUNT(*) FROM users")
         percentile= (len(cursor.fetchall())/count.fetchone()[0])*100
-        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False, percentile=percentile)
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False, percentile=percentile,avatar=session["avatar"])
     elif request.method == "POST": 
         if "change_pseudo" in request.form:
             db = get_db()
@@ -437,11 +438,11 @@ def profil(pseudo):
                     (password,session.get("pseudo"),))
                 db.commit()
             except ValidationError as e:
-                return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e))
+                return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e),avatar=session["avatar"])
         
             finally:
                 db.rollback()
-            return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
+            return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error,avatar=session["avatar"])
         elif "change_pp" in request.form:
             try:
                 avatar=request.files.get("avatar_file")
@@ -455,7 +456,7 @@ def profil(pseudo):
                 db.commit
             except ValidationError as e:
                 error=str(e)
-        return(render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error))
+        return(render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error,avatar=session["avatar"]))
 @app.route('/avatar/<filename>')
 def avatar(filename):
     return send_from_directory("avatar", filename)

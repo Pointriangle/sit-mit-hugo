@@ -23,7 +23,7 @@
     </header>
 
     <main>
-        <img src="${url_for('avatar', filename=user['avatar'])}" width="160" height="160" alt= "Avatar de ${pseudo}">
+        <img src="${url_for('avatar', filename=avatar)}" width="160" height="160" alt= "Avatar de ${pseudo}">
         <h1>Profil de ${pseudo} </h1>
         <p id="questions">Pseudo: ${pseudo} </p> 
         <p id="questions">Nombre de parties: ${points} (plus que ${percentile}% de joueurs) </p>
