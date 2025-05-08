@@ -308,6 +308,13 @@ def jeu():
                 if score > brat:
                     brat = score
                     bq = (qtype, texte)
+                elif score==brat:
+                    r=randint(0,1)
+                    if r==0:
+                        brat = score
+                        bq = (qtype, texte)
+
+
     if bq:
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
     
