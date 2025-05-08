@@ -220,6 +220,7 @@
         margin-bottom: 20px; 
     }
     .bandeau .btn {
+        padding: 20px 0;
         background-color: var(--a22628a);
         color: var(--ffffff) ;
         text-decoration: none;
@@ -252,11 +253,12 @@
     .r{
         margin-top: 4%;
         margin-right:4% ;
-        position: fixed;
-        top: 0; 
-        right: 0;
-        width: 7%;
-        height: 7%; 
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 60px;                 
+        height: 60px;
+        aspect-ratio: 1 / 1;
         border-radius: 50%;
         transition: transform 0.2s; 
         text-decoration: none;
@@ -279,6 +281,7 @@
         z-index: 2; 
     }
     .buttons {
+        padding: 20px 0;
         text-decoration: none;
         display: flex;
         justify-content: center;
@@ -286,6 +289,7 @@
         margin-bottom: 20px;
     }
     .btn {
+        padding: 20px 0;
         display: inline-flex;      
         justify-content: center;   
         align-items: center;      
@@ -304,6 +308,7 @@
         transition: background-color 0.3s ease;
     }
     a.btn {
+        padding: 20px 0;
         display: inline-flex;       
         justify-content: center;    
         align-items: center;        
@@ -451,6 +456,61 @@
     }
     
     
+
+
+    /*
+    ##############
+    ### avatar ###
+    ##############  
+    */
+
+    #avatar {
+        padding: 25px 20px;
+        max-width: 450px;
+        margin: 40px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    #avatar input[type="file"] {
+        padding: 20px 0;
+        display: inline-flex;      
+        justify-content: center;   
+        align-items: center;      
+        min-width: 200px;           
+        height: 50px;               
+        padding: 0 20px;            
+        font-size: 1rem;           
+        border-radius: 8px;        
+        text-align: center;        
+        white-space: nowrap;        
+        border: none;
+        color:  var(--d000000);
+        background-color: var(--ccc);
+        color: var(--g666);
+        text-decoration: none;
+        transition: background-color 0.3s ease; 
+    }
+    
+    #avatar input[type="file"]:hover {
+        background-color: var(--bbb);
+        animation-name:bounce;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+    
+    
+    #avatar input[type="submit"].btn:hover {
+        background-color: var(--bbb);
+        animation-name:bounce;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+    
+
+
     /*
     ########################
     ### style responsive ###

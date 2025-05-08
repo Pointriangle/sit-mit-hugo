@@ -16,8 +16,8 @@
             <a class="btn " href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn " href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             <a class="btn" href="${url_for('logout')}">Log out</a>
-            <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
-            <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
+            <a class="btn" href="${url_for('accueil')}">accueuil </a>
+            <p><a class="btn" href="${url_for('jeu')}"> jeu </a></p>  
         </div>  
         </div>
     </header>
@@ -53,9 +53,11 @@
                     <input class="btn" type="submit" value="Valider" name="change_pseudo" />
                 </div>
             </form> 
-        <form method="POST" enctype="multipart/for-data" >
-                <input type="file" name="avatar_file">
-                <input type="submit" value="Valider" name="change_pp">
+        <form   method="POST" enctype="multipart/form-data" >
+            <div class= buttons>
+                <p><input  type="file" name="avatar_file"></p>
+                <p><input class="btn" type="submit" value="Valider" name="change_pp"></p>
+            </div>
         </form>
         %if error is not None:
         <p style="color:red"> ${error} </p> 
