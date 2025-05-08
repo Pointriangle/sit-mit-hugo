@@ -308,6 +308,13 @@ def jeu():
                 if score > brat:
                     brat = score
                     bq = (qtype, texte)
+                elif score==brat:
+                    r=randint(0,1)
+                    if r==0:
+                        brat = score
+                        bq = (qtype, texte)
+
+
     if bq:
         return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
     
@@ -411,27 +418,47 @@ def profil(pseudo):
         percentile= (len(cursor.fetchall())/count.fetchone()[0])*100
         return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False, percentile=percentile)
     elif request.method == "POST": 
-        db = get_db()
-        cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
-        user = cursor.fetchone()
-        password = user["password"]
-        hash = hashlib.sha256(request.form["mdp"].encode())
-        hpassword = hash.hexdigest()
-        try:
-            if hpassword!=password:
-                raise ValidationError("Mot de passe incorrect")
-            if request.form["nmdp"] != request.form["confirm"]:
-                raise ValidationError("Les mots de passe ne correspondent pas.")
-            hash = hashlib.sha256(request.form["nmdp"].encode())
-            password = hash.hexdigest()
-            db.execute(
-                "UPDATE users SET password=? WHERE pseudo=?",
-                (password,session.get("pseudo"),))
-            db.commit()
-        except ValidationError as e:
-            return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e),validation=False)
+        if "change_pseudo" in request.form:
+            db = get_db()
+            cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+            user = cursor.fetchone()
+            password = user["password"]
+            hash = hashlib.sha256(request.form["mdp"].encode())
+            hpassword = hash.hexdigest()
+            try:
+                if hpassword!=password:
+                    raise ValidationError("Mot de passe incorrect")
+                if request.form["nmdp"] != request.form["confirm"]:
+                    raise ValidationError("Les mots de passe ne correspondent pas.")
+                hash = hashlib.sha256(request.form["nmdp"].encode())
+                password = hash.hexdigest()
+                db.execute(
+                    "UPDATE users SET password=? WHERE pseudo=?",
+                    (password,session.get("pseudo"),))
+                db.commit()
+            except ValidationError as e:
+                return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e))
         
-    return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error,validation=True) 
+            finally:
+                db.rollback()
+            return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
+        elif "change_pp" in request.form:
+            try:
+                avatar=request.files.get("avatar_file")
+                if avatar is None:
+                    raise ValidationError("Pas de partie 'avatar_file' dans le POST.")
+                if avatar.filename=="":
+                    raise ValidationError("Pas de fichier avatar sélectionné")
+                filename=secure_filename(user['pseudo']+"_"+avatar.filename)
+                avatar.save(os.path.join("avatar",filename))
+                db.execute("UPDATE users SET avatar=' WHERE id=?", (filename, user['id']))
+                db.commit
+            except ValidationError as e:
+                error=str(e)
+        return(render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error))
+@app.route('/avatar/<filename>')
+def avatar(filename):
+    return send_from_directory("avatar", filename)
 
     
 

@@ -23,11 +23,12 @@
     </header>
 
     <main>
+        <img src="${url_for('avatar', filename=user['avatar'])}" width="160" height="160" alt= "Avatar de ${pseudo}">
         <h1>Profil de ${pseudo} </h1>
         <p id="questions">Pseudo: ${pseudo} </p> 
         <p id="questions">Nombre de parties: ${points} (plus que ${percentile}% de joueurs) </p>
         <p id="questions">Actif depuis le: ${created_at} </p>  
-        <form method="POST">
+        <form method="POST" >
                 <label>
                     <h3>Changer de mot de passe</h3>
                 </label>
@@ -45,19 +46,21 @@
                     <p>Confirmer le mot de passe</p>
                     <input class="field" type="password" id="confirm" name="confirm" required> 
                 </label>
-        %if error is not None:
-        <p style="color:red"> ${error} </p> 
-        %endif 
         %if validation:
         <p style="color:green"> Mot de passe modifié <p>
         %endif
                 <div class="buttons">
-                    <input class="btn" type="submit" value="Valider" />
+                    <input class="btn" type="submit" value="Valider" name="change_pseudo" />
                 </div>
             </form> 
+        <form method="POST" enctype="multipart/for-data" >
+                <input type="file" name="avatar_file">
+                <input type="submit" value="Valider" name="change_pp">
+        </form>
+        %if error is not None:
+        <p style="color:red"> ${error} </p> 
+        %endif 
     </main>
-
-
     <footer>
         <div class="contacts">
             <p>Bug, problème ou curiosité? <a href="${url_for('contacts')}">Contactez-nous</a></p>  

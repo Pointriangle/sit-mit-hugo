@@ -1,12 +1,12 @@
 PRAGMA encoding="UTF-8";
-
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
     pseudo TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     points INTEGER DEFAULT 0,
     admin BOOLEAN DEFAULT 0,
-    created_at DATETIME
+    created_at DATETIME,
+    avatar TEXT DEFAULT 'default.png'
 );
 
 CREATE TABLE teachers (
@@ -23,7 +23,7 @@ CREATE TABLE teachers (
 );
 CREATE TABLE question (
     id INTEGER PRIMARY KEY ,
-    type TEXT NOT NULL UNIQUE,
+    type TEXT NOT NULL ,
     q TEXT NOT NULL UNIQUE,
     oui TEXT NOT NULL
     

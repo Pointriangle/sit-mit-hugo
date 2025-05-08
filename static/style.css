@@ -248,6 +248,22 @@
     .icon:hover {
         transform: scale(1.2); 
     }
+
+    .r{
+        margin-top: 4%;
+        margin-right:4% ;
+        position: fixed;
+        top: 0; 
+        right: 0;
+        width: 7%;
+        height: 7%; 
+        clip-path:ellipse(33% 50%);
+        transition: transform 0.2s; 
+        text-decoration: none;
+    }
+    .rond:hover {
+        transform: scale(1.2); 
+    }
     
     /*
     ###############

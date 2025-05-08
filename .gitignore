@@ -1,2 +1,3 @@
 #supprime le db
-/.db/
+/.db
+/__pycache__/

@@ -8,15 +8,26 @@
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img id="logoa" src="${url_for('static', filename='LOGO.png')}" alt="Logo">
-            <div class="bandeau">
-                % if is_logged_in:
-                    <a class="btn" href="${url_for('jeu')}">Jeu</a>
-                % endif
-                <a class="btn" href="${url_for('accueil')}">Retour à l'accueil</a>
+        <div>
+            % if is_logged_in:
+                <a href="${url_for('profil',pseudo = session.get("pseudo"))}" >
+                    <img src="${url_for('static',filename='Pointbendo.png')}"  class="r">
+                </a>
+            % endif
+        
+            <div class="logo">
+                <img id="logoa" src="${url_for('static',filename='LOGO.png')}" alt="Logo">
             </div>
         </div>
+        <div class="bandeau">
+        <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
+            % if is_logged_in:
+                <a class="btn" href="${url_for('jeu')}">Jeu</a>
+                <a class="btn" href="${url_for('accueil')}">Retour à l'accueil</a>
+            % endif
+                
+        </div>
+        
     </header>
 
     <main>
