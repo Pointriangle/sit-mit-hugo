@@ -12,8 +12,7 @@ VALUES ('genre','Est ce un homme?',0),
 
 
 INSERT INTO teachers (name, genre, couleur_yeux, couleur_cheveux, taille, branche, points, created_at, lunettes)
-VALUES
-('Mr. Emery', 0, 1, 1, 1, 'Musique', 0, '2025-04-03 18:00:54.423307', 0),
+VALUES('Mr. Emery', 0, 1, 1, 1, 'Musique', 0, '2025-04-03 18:00:54.423307', 0),
 ('Mme. Dupont', 1, 0, 0, 1, 'Biologie', 0, '2025-04-10 09:10:00', 1),
 ('Mr. Lambert', 0, 0, 0, 0, 'Chimie', 0, '2025-04-10 09:10:01', 0),
 ('Mme. Schneider', 1, 1, 0, 1, 'Physique', 0, '2025-04-10 09:10:02', 1),

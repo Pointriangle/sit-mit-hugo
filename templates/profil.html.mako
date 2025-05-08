@@ -15,10 +15,7 @@
         <div class="bandeau">
             <a class="btn " href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn " href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
-            % if is_logged_in: 
-                <a class="btn" href="${url_for('logout')}">Log out</a>
-            % endif
-            <div class="buttons">
+            <a class="btn" href="${url_for('logout')}">Log out</a>
             <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
             <a class="btn" href="${url_for('jeu')}"> Retour au jeu </a>  
         </div>  

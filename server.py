@@ -156,7 +156,7 @@ def jeu():
                 db.execute(
                         "UPDATE users SET points=? WHERE pseudo=?",
                         (points,session.get("pseudo"),))
-
+                
                 curseur=db.execute(
                         "SELECT points FROM teachers WHERE name=?",
                         (nom,))
