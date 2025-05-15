@@ -5,8 +5,7 @@ Server Web d'exemple écrit en Python avec Flask.
 import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 import random
-from flask import abort,request, redirect, url_for
-from flask import send_from_directory
+from flask import abort,request, redirect, url_for,send_from_directory
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from flask_mako import render_template,MakoTemplates
@@ -102,7 +101,7 @@ def login():
 
         db = get_db()
         try:
-            cursor = db.execute("SELECT pseudo, password, id, admin FROM users WHERE pseudo = ?", (pseudo,))
+            cursor = db.execute("SELECT pseudo, password, id,admin FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
             hash = hashlib.sha256(request.form["password"].encode())
             hpassword = hash.hexdigest()
@@ -385,6 +384,7 @@ def signup():
             db.commit()
             pseudo=request.form["pseudo"]
             session["pseudo"] = pseudo
+            
             return redirect(url_for("jeu"), code=303)
         
         except ValidationError as e:
@@ -413,6 +413,7 @@ def profil(pseudo):
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
         user = cursor.fetchone() 
+        user["avatar"]=session["avatar"]
         cursor=db.execute("SELECT pseudo from users WHERE points < ?", (user["points"],))
         count= db.execute("SELECT COUNT(*) FROM users")
         percentile= (len(cursor.fetchall())/count.fetchone()[0])*100
