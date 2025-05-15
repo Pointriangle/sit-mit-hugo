@@ -16,8 +16,8 @@
             <a class="btn " href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn " href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             <a class="btn" href="${url_for('logout')}">Log out</a>
-            <a class="btn" href="${url_for('accueil')}">accueuil </a>
-            <p><a class="btn" href="${url_for('jeu')}"> jeu </a></p>  
+            <a class="btn" href="${url_for('accueil')}">Accueuil </a>
+            <p><a class="btn" href="${url_for('jeu')}"> Jeu </a></p>  
         </div>  
         </div>
     </header>
