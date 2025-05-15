@@ -86,8 +86,8 @@ def ajoutprof():
             else:
                 lunettes=1
             db.execute(
-                "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,branche,created_at,lunettes) VALUES (?, ?, ?,?,?,?,?,?)",
-                (request.form['name'], genre,couleur_yeux,couleur_cheveux,taille,request.form["branche"],datetime.now(),lunettes)
+                "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,created_at,lunettes) VALUES (?, ?, ?,?,?,?,?)",
+                (request.form['name'], genre,couleur_yeux,couleur_cheveux, taille ,datetime.now(),lunettes)
             )
             db.commit()
             is_logged_in = "pseudo" in session  
@@ -377,7 +377,7 @@ def leaderboardeleve():
     cursor = db.execute("SELECT pseudo, points FROM users ORDER BY points DESC limit 3")
     users = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in,avatar=session["avatar"])
+    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in,avatar=avatar)
 
 @app.route("/leaderboardpro")
 def leaderboardpro():
@@ -390,7 +390,7 @@ def leaderboardpro():
     cursor = db.execute("SELECT name, points FROM teachers ORDER BY points DESC limit 3")
     teachers = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in,avatar=session["avatar"])
+    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in,avatar=avatar)
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -433,7 +433,7 @@ def logout():
 
 @app.route("/profil/<pseudo>",methods=["GET", "POST"])
 def profil(pseudo):
-    session["rep"]= {} 
+    session["rep"]= {}
     error=None
     db = get_db()
     cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
@@ -450,7 +450,6 @@ def profil(pseudo):
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
         user = cursor.fetchone() 
-        user["avatar"]=session["avatar"]
         cursor=db.execute("SELECT pseudo from users WHERE points < ?", (user["points"],))
         count= db.execute("SELECT COUNT(*) FROM users")
         percentile= (len(cursor.fetchall())/count.fetchone()[0])*100

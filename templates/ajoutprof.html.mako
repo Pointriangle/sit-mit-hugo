@@ -37,9 +37,6 @@
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="branche">Branche</label>
-            <input type="text" id="branche" name="branche" required>
-
             <label for="couleur_cheveux">Couleur des Cheveux</label>
             <select id="couleur_cheveux" name="couleur_cheveux" required>
                 <option>Sombres</option>
