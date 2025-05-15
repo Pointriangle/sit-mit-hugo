@@ -33,16 +33,29 @@ def index():
 
 @app.route("/accueil")
 def accueil():
-    is_logged_in = "pseudo" in session  
-    return render_template("accueil.html.mako",is_logged_in=is_logged_in)
+    is_logged_in = "pseudo" in session 
+    if "avatar" in session:
+        avatar=session["avatar"]
+    else:
+        avatar=None
+    return render_template("accueil.html.mako",is_logged_in=is_logged_in,avatar=avatar )
 
 @app.route("/contacts")
 def contacts():
-    return render_template("contacts.html.mako")
+    if "avatar" in session:
+        avatar=session["avatar"]
+    else:
+        avatar=None
+    return render_template("contacts.html.mako",avatar=session["avatar"])
 @app.route("/ajoutprof", methods=["GET", "POST"])
 def ajoutprof():
     if "pseudo" not in session:
         return redirect(url_for("login"), code=303)
+    
+    if "avatar" in session:
+        avatar=session["avatar"]
+    else:
+        avatar=None
 
     if not session.get("admin", False):
         abort(403) 
@@ -81,7 +94,7 @@ def ajoutprof():
             return render_template("ajoutprof.html.mako", validation=True,error=None,is_logged_in=is_logged_in)
         
         except sqlite3.IntegrityError as ie:
-            return render_template("ajoutprof.html.mako", error="Ce professeur est déja enregistré.",validation=False)
+            return render_template("ajoutprof.html.mako", error="Ce professeur est déja enregistré.",validation=False,avatar=session["avatar"])
         
         finally:
             db.rollback()
@@ -101,13 +114,15 @@ def login():
 
         db = get_db()
         try:
-            cursor = db.execute("SELECT pseudo, password, id,admin FROM users WHERE pseudo = ?", (pseudo,))
+
+            cursor = db.execute("SELECT pseudo, password, id, admin,avatar FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
             hash = hashlib.sha256(request.form["password"].encode())
             hpassword = hash.hexdigest()
             if user and hpassword == user["password"]:
                 session["pseudo"] = pseudo
                 session["admin"] = bool(user["admin"])
+                session["avatar"]=user["avatar"]
                 return redirect(url_for("jeu"), code=303)
             else:
                 return render_template("login.html.mako", error="Identifiants incorrects.")
@@ -124,6 +139,10 @@ def jeu():
     if "pseudo" not in session:
         return redirect(url_for("login"))
 
+    if "avatar" in session:
+        avatar=session["avatar"]
+    else:
+        avatar=None
     
     db = get_db()
     pseudo = session["pseudo"]
@@ -182,9 +201,9 @@ def jeu():
                     
                     j=True  
                     session["fp"]=nom
-                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j)
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=session["avatar"])
                 else :
-                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=session["avatar"])
         if request.form.get("question_type") and request.form.get("reponse"):
             question = request.form["question_type"]
             repu = request.form["reponse"]
@@ -277,7 +296,7 @@ def jeu():
         
         db.commit()
         session["rep"]= {} 
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom)
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,avatar=session["avatar"] )
 
     
     
@@ -315,7 +334,7 @@ def jeu():
 
 
     if bq:
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1])
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1],avatar=session["avatar"])
     
     elif bq is None and  len(pres) != 1 :
         session["fp"]={}
@@ -330,7 +349,7 @@ def jeu():
         j=True    
         session["rep"]= {}
         session["fp"]=nom
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j)
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=session["avatar"])
 
 
     cursor=db.execute(
@@ -344,26 +363,34 @@ def jeu():
             (points,session.get("pseudo"),))
     db.commit()
     session["rep"]= {}
-    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.")
+    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=session["avatar"])
 
 
 @app.route("/leaderboardeleve")
 def leaderboardeleve():
+    if "avatar" in session:
+        avatar=session["avatar"]
+    else:
+        avatar=None
     session["rep"]= {} 
     db = get_db()
     cursor = db.execute("SELECT pseudo, points FROM users ORDER BY points DESC limit 3")
     users = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in)
+    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in,avatar=session["avatar"])
 
 @app.route("/leaderboardpro")
 def leaderboardpro():
+    if "avatar" in session:
+        avatar=session["avatar"]
+    else:
+        avatar=None
     session["rep"]= {} 
     db = get_db()
     cursor = db.execute("SELECT name, points FROM teachers ORDER BY points DESC limit 3")
     teachers = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in)
+    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in,avatar=session["avatar"])
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -384,7 +411,10 @@ def signup():
             db.commit()
             pseudo=request.form["pseudo"]
             session["pseudo"] = pseudo
-            
+            cursor = db.execute("SELECT avatar FROM users WHERE pseudo = ?", (pseudo,))
+            user = cursor.fetchone()
+            session["avatar"]=user["avatar"]
+
             return redirect(url_for("jeu"), code=303)
         
         except ValidationError as e:
@@ -405,11 +435,18 @@ def logout():
 def profil(pseudo):
     session["rep"]= {} 
     error=None
+    db = get_db()
+    cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+    user = cursor.fetchone() 
+    cursor=db.execute("SELECT pseudo from users WHERE points < ?", (user["points"],))
+    count= db.execute("SELECT COUNT(*) FROM users")
+    percentile= (len(cursor.fetchall())/count.fetchone()[0])*100
     if request.method=='GET':
         if "pseudo" not in session:
             return redirect(url_for("login"), code=303)
         if session.get("pseudo") != pseudo:
             return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303,error=error,validation=False)
+
         db = get_db()
         cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
         user = cursor.fetchone() 
@@ -417,13 +454,19 @@ def profil(pseudo):
         cursor=db.execute("SELECT pseudo from users WHERE points < ?", (user["points"],))
         count= db.execute("SELECT COUNT(*) FROM users")
         percentile= (len(cursor.fetchall())/count.fetchone()[0])*100
-        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False, percentile=percentile)
+
+
+        return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False, percentile=percentile,avatar=session["avatar"])
+   
+   
+
     elif request.method == "POST": 
         if "change_pseudo" in request.form:
-            db = get_db()
             cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
             password = user["password"]
+            point=user["points"]
+            creat=user["created_at"]
             hash = hashlib.sha256(request.form["mdp"].encode())
             hpassword = hash.hexdigest()
             try:
@@ -438,25 +481,35 @@ def profil(pseudo):
                     (password,session.get("pseudo"),))
                 db.commit()
             except ValidationError as e:
-                return render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=str(e))
+                return render_template("profil.html.mako",pseudo=session["pseudo"],  points=point, created_at=creat,error=str(e),avatar=session["avatar"])
         
             finally:
                 db.rollback()
-            return redirect(url_for("profil",pseudo=session.get("pseudo")), points=user["points"], created_at=user["created_at"], code=303,error=error)
+            return redirect(url_for("profil",pseudo=session["pseudo"], points=point, created_at=creat, code=303,error=error,avatar=session["avatar"]))
         elif "change_pp" in request.form:
             try:
-                avatar=request.files.get("avatar_file")
+                cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+                user = cursor.fetchone()
+                point = user["points"]
+                creat = user["created_at"]
+                avatar = request.files.get("avatar_file")
+                print(avatar)
                 if avatar is None:
                     raise ValidationError("Pas de partie 'avatar_file' dans le POST.")
-                if avatar.filename=="":
-                    raise ValidationError("Pas de fichier avatar sélectionné")
-                filename=secure_filename(user['pseudo']+"_"+avatar.filename)
-                avatar.save(os.path.join("avatar",filename))
-                db.execute("UPDATE users SET avatar=' WHERE id=?", (filename, user['id']))
-                db.commit
+                if avatar.filename == "":
+                    raise ValidationError("Pas de fichier avatar sélectionné.")
+                filename = secure_filename(user['pseudo'] + "_" + avatar.filename)
+                avatar.save(os.path.join("avatar", filename))
+                db.execute("UPDATE users SET avatar=? WHERE pseudo=?", (filename,session['pseudo']))
+                db.commit()
+                
+                session["avatar"]=filename
             except ValidationError as e:
-                error=str(e)
-        return(render_template("profil.html.mako",pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error))
+                error = str(e)
+
+    return render_template("profil.html.mako", pseudo=session["pseudo"], points=point, created_at=creat, error=error, avatar=session["avatar"], percentile=percentile)
+
+       
 @app.route('/avatar/<filename>')
 def avatar(filename):
     return send_from_directory("avatar", filename)
