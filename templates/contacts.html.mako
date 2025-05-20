@@ -34,7 +34,7 @@
 
     <footer>
         <div class="contacts">
-            <p><a href="${url_for('accueil')}">Retour à l'accueuil</a></p>
+            <p><a href="${url_for('accueil')}">Accueuil</a></p>
         </div> 
     </footer>
 </body>

@@ -16,14 +16,16 @@
             <a class="btn " href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn " href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             <a class="btn" href="${url_for('logout')}">Log out</a>
-            <a class="btn" href="${url_for('accueil')}">accueuil </a>
-            <p><a class="btn" href="${url_for('jeu')}"> jeu </a></p>  
+            <a class="btn" href="${url_for('accueil')}">Accueuil </a>
+            <p><a class="btn" href="${url_for('jeu')}"> Jeu </a></p>  
         </div>  
-        </div>
+        
     </header>
 
     <main>
+
         <img src="${url_for('avatar', filename=avatar)}" width="160" height="160" alt= "Avatar de ${pseudo}">
+
         <h1>Profil de ${pseudo} </h1>
         <p id="questions">Pseudo: ${pseudo} </p> 
         <p id="questions">Nombre de parties: ${points} (plus que ${percentile}% de joueurs) </p>

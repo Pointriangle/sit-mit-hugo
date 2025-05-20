@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="bandeau">
-        <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
+        <a class="btn" href="${url_for('accueil')}"> Accueuil </a>
             % if is_logged_in:
                 <a class="btn" href="${url_for('jeu')}">Jeu</a>
-                <a class="btn" href="${url_for('accueil')}">Retour à l'accueil</a>
+                <a class="btn" href="${url_for('logout')}">Logout</a>
             % endif
                 
         </div>

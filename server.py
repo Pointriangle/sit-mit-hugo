@@ -5,8 +5,7 @@ Server Web d'exemple écrit en Python avec Flask.
 import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 import random
-from flask import abort,request, redirect, url_for
-from flask import send_from_directory
+from flask import abort,request, redirect, url_for,send_from_directory
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from flask_mako import render_template,MakoTemplates
@@ -87,8 +86,8 @@ def ajoutprof():
             else:
                 lunettes=1
             db.execute(
-                "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,branche,created_at,lunettes) VALUES (?, ?, ?,?,?,?,?,?)",
-                (request.form['name'], genre,couleur_yeux,couleur_cheveux,taille,request.form["branche"],datetime.now(),lunettes)
+                "INSERT INTO teachers (name, genre, couleur_yeux,couleur_cheveux,taille,created_at,lunettes) VALUES (?, ?, ?,?,?,?,?)",
+                (request.form['name'], genre,couleur_yeux,couleur_cheveux, taille ,datetime.now(),lunettes)
             )
             db.commit()
             is_logged_in = "pseudo" in session  
@@ -115,6 +114,7 @@ def login():
 
         db = get_db()
         try:
+
             cursor = db.execute("SELECT pseudo, password, id, admin,avatar FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
             hash = hashlib.sha256(request.form["password"].encode())
@@ -390,7 +390,7 @@ def leaderboardpro():
     cursor = db.execute("SELECT name, points FROM teachers ORDER BY points DESC limit 3")
     teachers = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in,avatar=session["avatar"])
+    return render_template('leaderboardpro.html.mako', teachers=teachers, is_logged_in=is_logged_in,avatar=avatar)
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -414,6 +414,7 @@ def signup():
             cursor = db.execute("SELECT avatar FROM users WHERE pseudo = ?", (pseudo,))
             user = cursor.fetchone()
             session["avatar"]=user["avatar"]
+
             return redirect(url_for("jeu"), code=303)
         
         except ValidationError as e:
@@ -432,7 +433,7 @@ def logout():
 
 @app.route("/profil/<pseudo>",methods=["GET", "POST"])
 def profil(pseudo):
-    session["rep"]= {} 
+    session["rep"]= {}
     error=None
     db = get_db()
     cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
@@ -445,9 +446,19 @@ def profil(pseudo):
             return redirect(url_for("login"), code=303)
         if session.get("pseudo") != pseudo:
             return redirect(url_for("profil", pseudo=session.get("pseudo")), code=303,error=error,validation=False)
+
+        db = get_db()
+        cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))
+        user = cursor.fetchone() 
+        cursor=db.execute("SELECT pseudo from users WHERE points < ?", (user["points"],))
+        count= db.execute("SELECT COUNT(*) FROM users")
+        percentile= (len(cursor.fetchall())/count.fetchone()[0])*100
+
+
         return render_template('profil.html.mako', pseudo=user["pseudo"], points=user["points"], created_at=user["created_at"],error=error, validation =False, percentile=percentile,avatar=session["avatar"])
    
    
+
     elif request.method == "POST": 
         if "change_pseudo" in request.form:
             cursor = db.execute("SELECT * FROM users WHERE pseudo = ?", (pseudo,))

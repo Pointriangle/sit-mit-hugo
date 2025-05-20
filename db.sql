@@ -16,7 +16,6 @@ CREATE TABLE teachers (
     couleur_yeux TEXT NOT NULL,
     couleur_cheveux TEXT NOT NULL,
     taille TEXT NOT NULL,
-    branche TEXT NOT NULL,
     points INTEGER DEFAULT 0,   
     created_at DATETIME, 
     lunettes TEXT NOT NULL

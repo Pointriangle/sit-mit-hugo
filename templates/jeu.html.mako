@@ -26,7 +26,7 @@
             <a class="btn" href="${url_for('leaderboardpro')}">Les professeurs les plus recherchés</a> 
             <a class="btn" href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             % if is_logged_in: 
-                <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
+                <a class="btn" href="${url_for('accueil')}"> Accueuil </a>
                 <p><a class="btn" href="${url_for('logout')}">Log out</a></p><br><br>
             % endif
         </div>

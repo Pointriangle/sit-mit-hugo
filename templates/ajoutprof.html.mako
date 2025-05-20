@@ -25,7 +25,7 @@
             <a class="btn" href="${url_for('leaderboardeleve')}">Les plus gros joueurs</a>
             % if is_logged_in: 
                 <a class="btn" href="${url_for('logout')}">Log out</a>
-                <a class="btn" href="${url_for('accueil')}"> Retour à l'accueuil </a>
+                <a class="btn" href="${url_for('accueil')}"> Accueuil </a>
             % endif
             
         </div>
@@ -36,9 +36,6 @@
         <form id="ajoutProfesseurForm" method="POST">
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" required>
-
-            <label for="branche">Branche</label>
-            <input type="text" id="branche" name="branche" required>
 
             <label for="couleur_cheveux">Couleur des Cheveux</label>
             <select id="couleur_cheveux" name="couleur_cheveux" required>
