@@ -47,7 +47,7 @@ def contacts():
         avatar=session["avatar"]
     else:
         avatar=None
-    return render_template("contacts.html.mako",avatar=session["avatar"])
+    return render_template("contacts.html.mako",avatar=avatar)
 @app.route("/ajoutprof", methods=["GET", "POST"])
 def ajoutprof():
     if "pseudo" not in session:
@@ -61,7 +61,7 @@ def ajoutprof():
     if not session.get("admin", False):
         abort(403) 
     if request.method == "GET":
-        return render_template('ajoutprof.html.mako',error=None,validation=False) 
+        return render_template('ajoutprof.html.mako',error=None,validation=False,avatar=avatar) 
     
     elif request.method == "POST": 
         db = get_db()
@@ -92,10 +92,10 @@ def ajoutprof():
             )
             db.commit()
             is_logged_in = "pseudo" in session  
-            return render_template("ajoutprof.html.mako", validation=True,error=None,is_logged_in=is_logged_in)
+            return render_template("ajoutprof.html.mako", validation=True,error=None,is_logged_in=is_logged_in,avatar=avatar)
         
         except sqlite3.IntegrityError as ie:
-            return render_template("ajoutprof.html.mako", error="Ce professeur est déja enregistré.",validation=False,avatar=session["avatar"])
+            return render_template("ajoutprof.html.mako", error="A quellequ'un que je ne connais pas.",validation=False,avatar=avatar)
         
         finally:
             db.rollback()
@@ -201,9 +201,9 @@ def jeu():
                     
                     j=True  
                     session["fp"]=nom
-                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=session["avatar"])
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=avatar)
                 else :
-                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=session["avatar"])
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=avatar)
         if request.form.get("question_type") and request.form.get("reponse"):
             question = request.form["question_type"]
             repu = request.form["reponse"]
@@ -296,7 +296,7 @@ def jeu():
         
         db.commit()
         session["rep"]= {} 
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,avatar=session["avatar"] )
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,avatar=avatar )
 
     
     
@@ -334,7 +334,7 @@ def jeu():
 
 
     if bq:
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1],avatar=session["avatar"])
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, question_type=bq[0], question=bq[1],avatar=avatar)
     
     elif bq is None and  len(pres) != 1 :
         session["fp"]={}
@@ -377,7 +377,7 @@ def leaderboardeleve():
     cursor = db.execute("SELECT pseudo, points FROM users ORDER BY points DESC limit 3")
     users = cursor.fetchall() 
     is_logged_in = "pseudo" in session  
-    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in,avatar=session["avatar"])
+    return render_template('leaderboardeleve.html.mako', users=users, is_logged_in=is_logged_in,avatar=avatar)
 
 @app.route("/leaderboardpro")
 def leaderboardpro():
