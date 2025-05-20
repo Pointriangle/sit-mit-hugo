@@ -203,7 +203,7 @@ def jeu():
                     session["fp"]=nom
                     return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=avatar)
                 else :
-                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=avatar)
+                    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="a quellequ'un que je ne connais pas",avatar=avatar)
         if request.form.get("question_type") and request.form.get("reponse"):
             question = request.form["question_type"]
             repu = request.form["reponse"]
@@ -349,7 +349,7 @@ def jeu():
         j=True    
         session["rep"]= {}
         session["fp"]=nom
-        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=session["avatar"])
+        return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof=nom,correct=j,avatar=avatar)
 
 
     cursor=db.execute(
@@ -363,7 +363,7 @@ def jeu():
             (points,session.get("pseudo"),))
     db.commit()
     session["rep"]= {}
-    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="Je ne sais pas encore. Essaie de recommencer.",avatar=session["avatar"])
+    return render_template("jeu.html.mako", pseudo=pseudo, is_admin=is_admin, is_logged_in=is_logged_in, final_prof="a quellequ'un que je ne connais pas",avatar=avatar)
 
 
 @app.route("/leaderboardeleve")
